@@ -411,7 +411,7 @@ namespace ModernWindow.PackageEngine.Managers
         }
 
 #pragma warning disable CS1998
-        public override async Task RefreshSources()
+        public override async Task RefreshPackageIndexes()
         {
             // Chocolatey does not support source refreshing
         }
@@ -497,7 +497,7 @@ namespace ModernWindow.PackageEngine.Managers
             }
             
             if (status.Found && IsEnabled())
-                await RefreshSources();
+                await RefreshPackageIndexes();
 
             return status;
         }

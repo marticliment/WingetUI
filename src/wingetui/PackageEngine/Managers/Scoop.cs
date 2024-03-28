@@ -67,14 +67,7 @@ public class Scoop : PackageManagerWithSources
             if (line.StartsWith("'"))
             {
                 string sourceName = line.Split(" ")[0].Replace("'", "");
-                if (SourceReference.ContainsKey(sourceName))
-                    source = SourceReference[sourceName];
-                else
-                {
-                    AppTools.Log("Unknown source!");
-                    source = new ManagerSource(this, sourceName, new Uri("https://scoop.sh/"), 0, "Unknown");
-                    SourceReference.Add(sourceName, source);
-                }
+                source = SourceFactory.GetSourceOrDefault(sourceName);
             }
             else if (line.Trim() != "")
             {
@@ -200,22 +193,11 @@ public class Scoop : PackageManagerWithSources
                 if (FALSE_PACKAGE_IDS.Contains(elements[0]) || FALSE_PACKAGE_VERSIONS.Contains(elements[1]))
                     continue;
 
-                ManagerSource source;
-                string sourceName = elements[2];
-                if (SourceReference.ContainsKey(sourceName))
-                    source = SourceReference[sourceName];
-                else
-                {
-                    AppTools.Log("Unknown source!");
-                    source = new ManagerSource(this, sourceName, new Uri("https://scoop.sh/"), 0, "Unknown");
-                    SourceReference.Add(sourceName, source);
-                }
-
                 PackageScope scope = PackageScope.User;
                 if (line.Contains("Global install"))
                     scope = PackageScope.Global;
 
-                Packages.Add(new Package(Tools.FormatAsName(elements[0]), elements[0], elements[1], source, this, scope));
+                Packages.Add(new Package(Tools.FormatAsName(elements[0]), elements[0], elements[1], SourceFactory.GetSourceOrDefault(elements[2]), this, scope));
             }
         }
         output += await p.StandardError.ReadToEndAsync();
@@ -514,7 +496,7 @@ public class Scoop : PackageManagerWithSources
         return parameters.ToArray();
     }
 
-    public override async Task RefreshSources()
+    public override async Task RefreshPackageIndexes()
     {
         Process process = new();
         ProcessStartInfo StartInfo = new()
@@ -588,7 +570,7 @@ public class Scoop : PackageManagerWithSources
 
 
         if (status.Found && IsEnabled())
-            _ = RefreshSources();
+            _ = RefreshPackageIndexes();
 
 
         Status = status; // Wee need this for the RunCleanup method to get the executable path

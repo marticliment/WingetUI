@@ -340,7 +340,7 @@ namespace ModernWindow.PackageEngine.Managers
         }
 
 #pragma warning disable CS1998
-        public override async Task RefreshSources()
+        public override async Task RefreshPackageIndexes()
         {
             // Pip does not support manual source refreshing
         }
@@ -401,7 +401,7 @@ namespace ModernWindow.PackageEngine.Managers
             status.Version = (await process.StandardOutput.ReadToEndAsync()).Trim();
 
             if (status.Found && IsEnabled())
-                await RefreshSources();
+                await RefreshPackageIndexes();
 
             return status;
         }

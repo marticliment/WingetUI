@@ -56,14 +56,7 @@ namespace ModernWindow.PackageEngine.Managers
 
                     for (int i = 0; i < elements.Length; i++) elements[i] = elements[i].Trim();
 
-                    if (SourceReference.ContainsKey(elements[2]))
-                        Packages.Add(new Package(Tools.FormatAsName(elements[1]), elements[1], elements[0], SourceReference[elements[2]], this));
-                    else
-                    {
-                        ManagerSource s = new(this, elements[2], new Uri("https://www.powershellgallery.com/api/v2"));
-                        Packages.Add(new Package(Tools.FormatAsName(elements[1]), elements[1], elements[0], s, this));
-                        SourceReference.Add(s.Name, s);
-                    }
+                    Packages.Add(new Package(Tools.FormatAsName(elements[1]), elements[1], elements[0], SourceFactory.GetSourceOrDefault(elements[2]), this));
                 }
             }
 
@@ -133,14 +126,7 @@ namespace ModernWindow.PackageEngine.Managers
                 if (elements[1] + ".0" == elements[2] || elements[1] + ".0.0" == elements[2])
                     continue;
 
-                if (SourceReference.ContainsKey(elements[3]))
-                    Packages.Add(new UpgradablePackage(Tools.FormatAsName(elements[0]), elements[0], elements[1], elements[2], SourceReference[elements[3]], this));
-                else
-                {
-                    ManagerSource s = new(this, elements[3], new Uri("https://www.powershellgallery.com/api/v2"));
-                    Packages.Add(new UpgradablePackage(Tools.FormatAsName(elements[0]), elements[0], elements[1], elements[2], s, this));
-                    SourceReference.Add(s.Name, s);
-                }
+                Packages.Add(new UpgradablePackage(Tools.FormatAsName(elements[0]), elements[0], elements[1], elements[2], SourceFactory.GetSourceOrDefault(elements[3]), this));
             }
 
             output += await p.StandardError.ReadToEndAsync();
@@ -186,15 +172,7 @@ namespace ModernWindow.PackageEngine.Managers
 
                     for (int i = 0; i < elements.Length; i++) elements[i] = elements[i].Trim();
 
-                    if (SourceReference.ContainsKey(elements[2]))
-                        Packages.Add(new Package(Tools.FormatAsName(elements[1]), elements[1], elements[0], SourceReference[elements[2]], this));
-                    else
-                    {
-                        AppTools.Log("Unknown PowerShell source!");
-                        ManagerSource s = new(this, elements[2], new Uri("https://www.powershellgallery.com/api/v2"));
-                        Packages.Add(new Package(Tools.FormatAsName(elements[1]), elements[1], elements[0], s, this));
-                        SourceReference.Add(s.Name, s);
-                    }
+                    Packages.Add(new Package(Tools.FormatAsName(elements[1]), elements[1], elements[0], SourceFactory.GetSourceOrDefault(elements[2]), this));
                 }
             }
 
@@ -400,7 +378,7 @@ namespace ModernWindow.PackageEngine.Managers
         }
 
 #pragma warning disable CS1998
-        public override async Task RefreshSources()
+        public override async Task RefreshPackageIndexes()
         {
             // PowerShell does not allow manual refresh of sources;
         }
@@ -469,7 +447,7 @@ namespace ModernWindow.PackageEngine.Managers
             status.Version = (await process.StandardOutput.ReadToEndAsync()).Trim();
 
             if (status.Found && IsEnabled())
-                await RefreshSources();
+                await RefreshPackageIndexes();
 
             return status;
         }

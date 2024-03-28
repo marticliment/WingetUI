@@ -28,10 +28,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Intereface\**" />
+    <Compile Remove="PackageEngine\Managers\WinGetClasses\**" />
     <Content Remove="..\wingetui-engine\.vscode\**" />
     <EmbeddedResource Remove="Intereface\**" />
+    <EmbeddedResource Remove="PackageEngine\Managers\WinGetClasses\**" />
     <None Remove="Intereface\**" />
+    <None Remove="PackageEngine\Managers\WinGetClasses\**" />
     <Page Remove="Intereface\**" />
+    <Page Remove="PackageEngine\Managers\WinGetClasses\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Languages\Contributors.list" />
@@ -56,7 +60,26 @@
     <None Remove="MainWindow.xaml" />
     <None Remove="PackageEngine\OperationControl.xaml" />
   </ItemGroup>
-  <ItemGroup>
+
+
+	<!--PropertyGroup>
+	    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
+	    <CsWinRTIncludes>Microsoft.Management.Deployment</CsWinRTIncludes>
+    </PropertyGroup>
+
+    <ItemGroup>
+	    <CsWinRTInputs Include="$(TargetDir)\Microsoft.Management.Deployment.winmd" />
+	    <Content Include="$(TargetDir)\Microsoft.Management.Deployment.winmd" Link="Microsoft.Management.Deployment.winmd" CopyToOutputDirectory="PreserveNewest" />
+	    <Content Include="$(TargetDir)\Microsoft.Management.Configuration.dll" Link="Microsoft.Management.Configuration.dll" CopyToOutputDirectory="PreserveNewest" />
+	    <Content Include="$(TargetDir)\Microsoft.Management.Configuration.winmd" Link="Microsoft.Management.Configuration.winmd" CopyToOutputDirectory="PreserveNewest" />
+
+	    < This DLL from the winget COM interop package allows activating the winget server elevated >
+	    <Content Include="$(TargetDir)\winrtact.dll" Link="winrtact.dll" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup-->
+
+
+
+	<ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
@@ -66,10 +89,44 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
     <PackageReference Include="Nancy" Version="2.0.0" />
-    <PackageReference Include="Nancy.Hosting.Self" Version="2.0.0" />
+    <PackageReference Include="Nancy.Hosting.Self" Version="2.0.0">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
     <PackageReference Include="YamlDotNet" Version="15.1.2" />
+
+	<!--
+    
+	Stolen from Dev Home ;)
+	
+	Microsoft.WindowsPackageManager.ComInterop nuget targets .NET Framework:
+    https://www.nuget.org/packages/Microsoft.WindowsPackageManager.ComInterop#readme-body-tab
+    To workaround this issue in this .net project:
+    - Suppress warning 1701 (Package not compatible)
+    - Do not include nuget assets
+    - Generate a property for this package so the path can be referenced
+    - Copy the WINMD to the $(TargetDir) before the build starts
+    - Feed the $(TargetDir)\WINMD path to CsWinRT in order to generate the projected classes
+    NOTE: Suppressing the warning only is not enough as this will cause CoreClrInitFailure (0x80008089) error.
+    -->
+		<!--PackageReference Include="Microsoft.WindowsPackageManager.ComInterop" Version="1.7.10091-preview">
+		<NoWarn>NU1701</NoWarn>
+		<GeneratePathProperty>true</GeneratePathProperty>
+		<IncludeAssets>none</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Microsoft.WindowsPackageManager.Configuration.OutOfProc" Version="1.7.10091-preview">
+		<GeneratePathProperty>True</GeneratePathProperty>
+	</PackageReference-->
+	  
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
+
+	<!--Target Name="CopyWinmdToTargetDir" BeforeTargets="BeforeBuild">
+	<Copy SourceFiles="$(PkgMicrosoft_WindowsPackageManager_ComInterop)\lib\Microsoft.Management.Deployment.winmd" DestinationFolder="$(TargetDir)" />
+	<Copy SourceFiles="$(PkgMicrosoft_WindowsPackageManager_ComInterop)\runtimes\win10-$(Platform)\native\winrtact.dll" DestinationFolder="$(TargetDir)" />
+	<Copy SourceFiles="$(PkgMicrosoft_WindowsPackageManager_Configuration_OutOfProc)\runtimes\win10-$(Platform)\native\Microsoft.Management.Configuration.dll" DestinationFolder="$(TargetDir)" />
+	<Copy SourceFiles="$(PkgMicrosoft_WindowsPackageManager_Configuration_OutOfProc)\runtimes\win10-$(Platform)\native\Microsoft.Management.Configuration.winmd" DestinationFolder="$(TargetDir)" />
+</Target-->
+	
   <!-- 
     Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
     Tools extension to be activated for this project even if the Windows App SDK Nuget
@@ -1830,5 +1887,11 @@
   <ItemGroup>
     <Folder Include="Interface\SoftwarePages\" />
     <Folder Include="PackageEngine\Operations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Remove="PackageEngine\Managers\WinGetClasses\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Y:\WingetUI-Store\src\WindowsPackageManager.Interop\WindowsPackageManager Interop.csproj" />
   </ItemGroup>
 </Project>

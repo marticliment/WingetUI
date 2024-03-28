@@ -708,24 +708,20 @@ namespace ModernWindow.Interface
                     continue;
                 }
 
-                ManagerSource Source = null;
+                ManagerSource Source = PackageManager.GetMainSource();
 
-                if (PackageManager.Capabilities.SupportsCustomSources)
+                if (PackageManager.Capabilities.SupportsCustomSources && PackageManager is PackageManagerWithSources)
                 {
                     // Check if the source exists
-                    if ((PackageManager as PackageManagerWithSources).SourceReference.ContainsKey(DeserializedPackage.Source.Split(':')[^1].Trim()))
+                    string SourceName = DeserializedPackage.Source.Split(':')[^1].Trim();
+                    Source = (PackageManager as PackageManagerWithSources).SourceFactory.GetSourceIfExists(SourceName);
+
+                    if (Source == null)
                     {
-                        Source = (PackageManager as PackageManagerWithSources).SourceReference[DeserializedPackage.Source.Split(':')[^1].Trim()];
-                    }
-                    else
-                    {
-                        Source = null;
                         AddPackage(new InvalidBundledPackage(DeserializedPackage.Name, DeserializedPackage.Id, DeserializedPackage.Version, DeserializedPackage.Source, DeserializedPackage.ManagerName));
                         continue;
                     }
                 }
-                else
-                    Source = PackageManager.GetMainSource();
 
                 Package package = new(DeserializedPackage.Name, DeserializedPackage.Id, DeserializedPackage.Version, Source, PackageManager);
 

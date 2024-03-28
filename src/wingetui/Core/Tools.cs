@@ -466,7 +466,9 @@ Crash Traceback:
         {
             try
             {
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
                 WebRequest req = WebRequest.Create(url);
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
                 req.Method = "HEAD";
                 WebResponse resp = await req.GetResponseAsync();
                 long ContentLength;

@@ -1,0 +1,7 @@
+﻿CoCreateInstance
+CoMarshalInterface
+CoUnmarshalInterface
+CreateStreamOnHGlobal
+HRESULT_FROM_WIN32
+MSHCTX
+MSHLFLAGS

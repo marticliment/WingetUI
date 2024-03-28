@@ -332,7 +332,7 @@ namespace ModernWindow.PackageEngine.Managers
         }
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        public override async Task RefreshSources()
+        public override async Task RefreshPackageIndexes()
         {
             // Npm does not support manual source refreshing
         }
@@ -395,7 +395,7 @@ namespace ModernWindow.PackageEngine.Managers
             await process.WaitForExitAsync();
 
             if (status.Found && IsEnabled())
-                await RefreshSources();
+                await RefreshPackageIndexes();
 
             return status;
         }
