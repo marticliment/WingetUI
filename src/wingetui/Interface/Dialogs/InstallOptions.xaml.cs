@@ -1,9 +1,9 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using ModernWindow.Core.Data;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.PackageEngine.Operations;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.PackageEngine.Operations;
+using UniGetUI.Core;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,7 +14,7 @@ using Windows.Storage.Pickers;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ModernWindow.Interface.Dialogs
+namespace UniGetUI.Interface.Dialogs
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -161,7 +161,7 @@ namespace ModernWindow.Interface.Dialogs
 
         private void SelectDir_Click(object sender, RoutedEventArgs e)
         {
-            var openPicker = new Pickers.FolderPicker(Tools.App.MainWindow.GetWindowHandle());
+            var openPicker = new UniGetUI.ExternalLibraries.Pickers.FolderPicker(Tools.App.MainWindow.GetWindowHandle());
             string folder = openPicker.Show();
             if (folder != String.Empty)
                 CustomInstallLocation.Text = folder;

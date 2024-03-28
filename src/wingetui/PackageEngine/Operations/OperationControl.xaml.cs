@@ -4,10 +4,9 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
-using ModernWindow.Core.Data;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.PackageEngine.Operations;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,12 +14,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ModernWindow.PackageEngine
+namespace UniGetUI.PackageEngine.Operations
 {
     public abstract partial class AbstractOperation : UserControl
     {
@@ -259,7 +257,7 @@ namespace ModernWindow.PackageEngine
             if (await Tools.App.MainWindow.ShowDialogAsync(OutputDialog) == ContentDialogResult.Secondary)
             {
                 LiveOutputScrollBar.ScrollToVerticalOffset(LiveOutputScrollBar.ScrollableHeight);
-                Clipboard.WindowsClipboard.SetText(string.Join('\n', ProcessOutput.ToArray()));
+                UniGetUI.ExternalLibraries.Clipboard.WindowsClipboard.SetText(string.Join('\n', ProcessOutput.ToArray()));
             }
             IsDialogOpen = false;
         }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="ModernWindow.Interface.PackageBundlePage"
+    x:Class="UniGetUI.Interface.PackageBundlePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ModernWindow.Interface"
+    xmlns:local="using:UniGetUI.Interface"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Toolkit="using:CommunityToolkit.WinUI.Controls"
-    xmlns:engine="using:ModernWindow.PackageEngine.Classes"
-    xmlns:widgets="using:ModernWindow.Interface.Widgets"
+    xmlns:engine="using:UniGetUI.PackageEngine.Classes"
+    xmlns:widgets="using:UniGetUI.Interface.Widgets"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals" 
     mc:Ignorable="d"
     Name="DiscoverPage"

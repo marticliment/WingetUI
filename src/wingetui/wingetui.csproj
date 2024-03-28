@@ -4,7 +4,7 @@
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 	<TargetMinVersion>10.0.17763.0</TargetMinVersion>
-    <RootNamespace>ModernWindow</RootNamespace>
+    <RootNamespace>UniGetUI</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
@@ -13,7 +13,7 @@
     <WindowsAppSDKWinUI>true</WindowsAppSDKWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsPackageType>None</WindowsPackageType>
-    <StartupObject>ModernWindow.EntryPoint</StartupObject>
+    <StartupObject>UniGetUI.EntryPoint</StartupObject>
     <SignAssembly>False</SignAssembly>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <AssemblyName>WingetUI</AssemblyName>
@@ -43,7 +43,7 @@
     <None Remove="Interface\DiscoverPackages.xaml" />
     <None Remove="Interface\IgnoredUpdates.xaml" />
     <None Remove="Interface\InstalledPackages.xaml" />
-    <None Remove="Interface\NavigationPage.xaml" />
+    <None Remove="Interface\MainView.xaml" />
     <None Remove="Interface\Pages\AboutPages\AboutWingetUI.xaml" />
     <None Remove="Interface\Pages\AboutPages\Contributors.xaml" />
     <None Remove="Interface\Pages\AboutPages\SupportMe.xaml" />
@@ -1813,7 +1813,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Interface\NavigationPage.xaml">
+    <Page Update="Interface\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -2,12 +2,11 @@ using CommunityToolkit.WinUI.Notifications;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using ModernWindow.Core.Data;
-using ModernWindow.Essentials;
-using ModernWindow.Interface.Widgets;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.PackageEngine.Operations;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.Core;
+using UniGetUI.Interface.Widgets;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.PackageEngine.Operations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +18,7 @@ using Windows.UI.Core;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ModernWindow.Interface
+namespace UniGetUI.Interface
 {
 
     public partial class SoftwareUpdatesPage : Page

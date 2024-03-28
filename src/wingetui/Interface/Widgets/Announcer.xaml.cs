@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Shapes;
-using ModernWindow.Structures;
+using UniGetUI.Core;
 using System;
 using Windows.ApplicationModel.Email;
 using Windows.UI.Text;
@@ -13,7 +13,7 @@ using Windows.Web.Http;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ModernWindow.Interface.Widgets
+namespace UniGetUI.Interface.Widgets
 {
     public sealed partial class Announcer : UserControl
     {

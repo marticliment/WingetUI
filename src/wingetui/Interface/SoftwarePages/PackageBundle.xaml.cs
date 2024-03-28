@@ -1,12 +1,11 @@
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using ModernWindow.Essentials;
-using ModernWindow.Interface.Widgets;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.PackageEngine.Operations;
-using ModernWindow.Structures;
-using Pickers;
+using UniGetUI.Core;
+using UniGetUI.Interface.Widgets;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.PackageEngine.Operations;
+using UniGetUI.ExternalLibraries.Pickers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +24,7 @@ using YamlDotNet.Serialization;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ModernWindow.Interface
+namespace UniGetUI.Interface
 {
     public partial class PackageBundlePage : Page
     {
@@ -616,7 +615,7 @@ namespace ModernWindow.Interface
             try
             {
                 // Select file
-                var picker = new Pickers.FileOpenPicker(Tools.App.MainWindow.GetWindowHandle());
+                var picker = new UniGetUI.ExternalLibraries.Pickers.FileOpenPicker(Tools.App.MainWindow.GetWindowHandle());
                 var file = picker.Show(new List<string>() {"*.json", "*.yaml", "*.xml" });
                 if (file == String.Empty)
                     return;
@@ -779,7 +778,7 @@ namespace ModernWindow.Interface
             {
                 // Get file 
                 // Save file
-                var file = (new Pickers.FileSavePicker(Tools.App.MainWindow.GetWindowHandle())).Show(new List<string>() { "*.json", "*.yaml", "*.xml" }, Tools.Translate("Package bundle") + ".json") ;
+                var file = (new UniGetUI.ExternalLibraries.Pickers.FileSavePicker(Tools.App.MainWindow.GetWindowHandle())).Show(new List<string>() { "*.json", "*.yaml", "*.xml" }, Tools.Translate("Package bundle") + ".json") ;
                 if (file != String.Empty)
                 {
                     // Loading dialog

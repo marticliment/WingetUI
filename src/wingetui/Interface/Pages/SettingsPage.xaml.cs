@@ -3,11 +3,10 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
-using ModernWindow.Clipboard;
-using ModernWindow.Core.Data;
-using ModernWindow.Interface.Widgets;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.Interface.Widgets;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,11 +16,12 @@ using System.Linq;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using UniGetUI.ExternalLibraries.Clipboard;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ModernWindow.Interface
+namespace UniGetUI.Interface
 {
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
@@ -324,7 +324,7 @@ namespace ModernWindow.Interface
 
         private void ImportSettings(object sender, Interface.Widgets.ButtonCardEventArgs e)
         {
-            var picker = new Pickers.FileOpenPicker(Tools.App.MainWindow.GetWindowHandle());
+            var picker = new UniGetUI.ExternalLibraries.Pickers.FileOpenPicker(Tools.App.MainWindow.GetWindowHandle());
             var file = picker.Show(new List<string> { "*.json" });
 
             if (file != string.Empty)
@@ -342,7 +342,7 @@ namespace ModernWindow.Interface
         {
             try
             {
-                var picker = new Pickers.FileSavePicker(Tools.App.MainWindow.GetWindowHandle());
+                var picker = new UniGetUI.ExternalLibraries.Pickers.FileSavePicker(Tools.App.MainWindow.GetWindowHandle());
                 var file = picker.Show(new List<string> { "*.json" }, Tools.Translate("WingetUI Settings") + ".json");
 
                 if (file != String.Empty)
@@ -413,7 +413,7 @@ namespace ModernWindow.Interface
         private void ChangeBackupDirectory_Click(object sender, dynamic e)
         {
 
-            var openPicker = new Pickers.FolderPicker(Tools.App.MainWindow.GetWindowHandle());
+            var openPicker = new UniGetUI.ExternalLibraries.Pickers.FolderPicker(Tools.App.MainWindow.GetWindowHandle());
             string folder = openPicker.Show();
             if (folder != String.Empty)
             {

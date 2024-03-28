@@ -1,5 +1,5 @@
-﻿using ModernWindow.PackageEngine.Classes;
-using ModernWindow.Structures;
+﻿using UniGetUI.PackageEngine.Classes;
+using UniGetUI.Core;
 using Nancy.Extensions;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Windows.Media.Streaming.Adaptive;
 
-namespace ModernWindow.Core.Data
+namespace UniGetUI.Core.Data
 {
     public static class LanguageData
     {
@@ -128,12 +128,25 @@ namespace ModernWindow.Core.Data
 
         public string Translate(string key)
         {
+            if (key == "WingetUI")
+            {
+                if (MainLangDict.ContainsKey("formerly WingetUI"))
+                    return "UniGetUI (" + MainLangDict["formerly WingetUI"] + ")";
+                return "UniGetUI (formerly WingetUI)";
+            }
+            else if (key == "Formerly known as WingetUI")
+            {
+                if (MainLangDict.ContainsKey(key))
+                    return MainLangDict[key];
+                return key;
+            }
+
             if (key == null || key == "")
                 return "";
             else if (MainLangDict.ContainsKey(key) && MainLangDict[key] != "")
-                return MainLangDict[key];
+                return MainLangDict[key].Replace("WingetUI", "UniGetUI");
             else
-                return key;
+                return key.Replace("WingetUI", "UniGetUI");
         }
     }
 

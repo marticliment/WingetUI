@@ -1,8 +1,8 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using ModernWindow.Core.Data;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ModernWindow.Interface
+namespace UniGetUI.Interface
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

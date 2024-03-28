@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UserControl
-    x:Class="ModernWindow.Interface.Widgets.NavButton"
+    x:Class="UniGetUI.Interface.Widgets.NavButton"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ModernWindow.Interface.Widgets"
+    xmlns:local="using:UniGetUI.Interface.Widgets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Height="Auto" Width="70" 
-    xmlns:widgets="using:ModernWindow.Interface.Widgets" xmlns:animations="using:CommunityToolkit.WinUI.Animations">
+    xmlns:widgets="using:UniGetUI.Interface.Widgets" xmlns:animations="using:CommunityToolkit.WinUI.Animations">
 
 
     <animations:Implicit.ShowAnimations>

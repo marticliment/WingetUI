@@ -1,6 +1,5 @@
-﻿using ModernWindow.Essentials;
-using ModernWindow.PackageEngine.Operations;
-using ModernWindow.Structures;
+﻿using UniGetUI.Core;
+using UniGetUI.PackageEngine.Operations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace ModernWindow.PackageEngine.Classes
+namespace UniGetUI.PackageEngine.Classes
 {
 
     /// <summary>

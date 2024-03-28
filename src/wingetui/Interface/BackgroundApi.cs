@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Data;
-using ModernWindow.Core.Data;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.Core;
 using Nancy;
 using Nancy.Hosting.Self;
 using System;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Graphics.DirectX.Direct3D11;
 
-namespace ModernWindow.Interface
+namespace UniGetUI.Interface
 {
     public class BackgroundApiRunner
     {

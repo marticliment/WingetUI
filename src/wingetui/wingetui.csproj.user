@@ -37,7 +37,7 @@
     <Page Update="Interface\Widgets\NavButton.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Interface\NavigationPage.xaml">
+    <Page Update="Interface\MainView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <None Update="Package.appxmanifest">

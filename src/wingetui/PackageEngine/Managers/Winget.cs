@@ -1,7 +1,7 @@
-﻿using ModernWindow.Core.Data;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.PackageEngine.Operations;
-using ModernWindow.Structures;
+﻿using UniGetUI.Core.Data;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.PackageEngine.Operations;
+using UniGetUI.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 
-namespace ModernWindow.PackageEngine.Managers
+namespace UniGetUI.PackageEngine.Managers
 {
     public class Winget : PackageManagerWithSources
     {

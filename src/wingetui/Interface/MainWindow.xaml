@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Window
-    x:Class="ModernWindow.MainWindow"
+    x:Class="UniGetUI.Interface.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ModernWindow"
+    xmlns:local="using:UniGetUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:tb="using:H.NotifyIcon" xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:animations="using:CommunityToolkit.WinUI.Animations" xmlns:widgets="using:UniGetUI.Interface.Widgets"
     mc:Ignorable="d"
     Title="WingetUI">
 
@@ -37,7 +37,7 @@
                             <BitmapImage DecodePixelHeight="16"  UriSource="ms-appx:///Assets/Images/icon.png"/>
                         </Image.Source>
                     </Image>
-                    <TextBlock x:Name="AppTitle" Text="WingetUI" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="13"/>
+                    <widgets:TranslatedTextBlock x:Name="AppTitle" Text="WingetUI" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12"/>
                 </StackPanel>
             </Border>
             <InfoBar Name="UpdatesBanner" x:FieldModifier="public" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsOpen="False" Visibility="{x:Bind UpdatesBanner.IsOpen, Mode=OneWay}" Margin="0,0,0,4" CornerRadius="0" BorderThickness="0,1,0,1"/>
@@ -84,9 +84,14 @@
                         </animations:AnimationSet>
                     </animations:Explicit.Animations>
 
-                    <TextBlock Text="WingetUI" VerticalAlignment="Center" FontWeight="ExtraBlack" 
-                        HorizontalAlignment="Right" HorizontalTextAlignment="Right"
+                    <Grid>
+                    <TextBlock Text="UniGetUI" VerticalAlignment="Center" FontWeight="ExtraBlack" 
+                        HorizontalAlignment="Right" HorizontalTextAlignment="Right" Padding="0,0,0,10"
                         FontFamily="Segoe UI Variable Display" FontSize="90" Name="WingetUITitle"/>
+                        <widgets:TranslatedTextBlock Text="Formerly known as WingetUI" VerticalAlignment="Bottom"
+                        HorizontalAlignment="Center"
+                        FontFamily="Segoe UI Variable Text" FontSize="20" />
+                    </Grid>
                 </Border>
             </StackPanel>
             <ProgressBar

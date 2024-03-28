@@ -7,11 +7,11 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.Win32;
-using ModernWindow.Core.Data;
-using ModernWindow.Interface;
-using ModernWindow.Interface.Widgets;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.Interface;
+using UniGetUI.Interface.Widgets;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -23,7 +23,7 @@ using Windows.ApplicationModel.VoiceCommands;
 using Windows.Foundation.Collections;
 
 
-namespace ModernWindow
+namespace UniGetUI.Interface
 {
     public sealed partial class MainWindow : Window
     {
@@ -45,7 +45,7 @@ namespace ModernWindow
             new(0xa5caee9b, 0x8708, 0x49d1, 0x8d, 0x36, 0x67, 0xd2, 0x5a, 0x8d, 0xa0, 0x0c);
 
         AppTools Tools = AppTools.Instance;
-        public NavigationPage NavigationPage;
+        public MainView NavigationPage;
         public Grid ContentRoot;
         public bool BlockLoading = false;
         ContentDialog LoadingSthDalog;
@@ -304,7 +304,7 @@ namespace ModernWindow
             ContentRoot = __content_root;
 
 
-            NavigationPage = new NavigationPage();
+            NavigationPage = new MainView();
             Grid.SetRow(NavigationPage, 3);
             Grid.SetColumn(NavigationPage, 0);
             MainContentGrid.Children.Add(NavigationPage);

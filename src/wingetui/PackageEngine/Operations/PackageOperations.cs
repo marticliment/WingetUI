@@ -3,15 +3,15 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
-using ModernWindow.Core.Data;
-using ModernWindow.Interface.Widgets;
-using ModernWindow.PackageEngine.Classes;
-using ModernWindow.Structures;
+using UniGetUI.Core.Data;
+using UniGetUI.Interface.Widgets;
+using UniGetUI.PackageEngine.Classes;
+using UniGetUI.Core;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace ModernWindow.PackageEngine.Operations
+namespace UniGetUI.PackageEngine.Operations
 {
     public enum OperationVeredict
     {
