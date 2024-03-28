@@ -324,7 +324,7 @@ namespace ModernWindow.PackageEngine
                 currentIndex = Tools.OperationQueue.IndexOf(this);
                 if (currentIndex != oldIndex)
                 {
-                    LineInfoText = Tools.Translate("Operation on queue (position {0})...").Replace("{0}", currentIndex.ToString());
+                    LineInfoText = Tools.Translate("Operation on queue (position {0})...", currentIndex);
                     oldIndex = currentIndex;
                 }
                 await Task.Delay(100);

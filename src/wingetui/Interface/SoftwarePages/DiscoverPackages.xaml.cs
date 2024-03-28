@@ -433,7 +433,7 @@ namespace ModernWindow.Interface
                     {
                         BackgroundText.Text = Tools.AutoTranslated("No results were found matching the input criteria");
                         SourcesPlaceholderText.Text = Tools.AutoTranslated("No packages were found");
-                        MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.").Replace("{0}", Packages.Count.ToString()).Replace("{1}", (MatchingList.Length - HiddenPackagesDueToSource).ToString());
+                        MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.", Packages.Count, MatchingList.Length - HiddenPackagesDueToSource);
                     }
                     BackgroundText.Visibility = Visibility.Visible;
                 }
@@ -441,7 +441,7 @@ namespace ModernWindow.Interface
             else
             {
                 BackgroundText.Visibility = Visibility.Collapsed;
-                MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.").Replace("{0}", Packages.Count.ToString()).Replace("{1}", (MatchingList.Length - HiddenPackagesDueToSource).ToString());
+                MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.", Packages.Count, MatchingList.Length - HiddenPackagesDueToSource);
             }
         }
 
@@ -708,7 +708,7 @@ namespace ModernWindow.Interface
 
             Tools.App.MainWindow.Activate();
 
-            Tools.App.MainWindow.ShowLoadingDialog(Tools.Translate("Please wait...").Replace("{0}", pId));
+            Tools.App.MainWindow.ShowLoadingDialog(Tools.Translate("Please wait...", pId));
             QueryIdRadio.IsChecked = true;
             QueryBlock.Text = pId;
             await FilterPackages(pId);
@@ -739,7 +739,7 @@ namespace ModernWindow.Interface
                 c.XamlRoot = this.XamlRoot;
                 c.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
                 c.Title = Tools.Translate("Package not found");
-                c.Content = Tools.Translate("The package {0} from {1} was not found.").Replace("{0}", pId).Replace("{1}", pSource);
+                c.Content = Tools.Translate("The package {0} from {1} was not found.", pId, pSource);
                 c.PrimaryButtonText = Tools.Translate("OK");
                 c.DefaultButton = ContentDialogButton.Primary;
                 await Tools.App.MainWindow.ShowDialogAsync(c);

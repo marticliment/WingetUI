@@ -39,7 +39,7 @@ namespace ModernWindow.Interface.Widgets
         public SourceManager(PackageManagerWithSources Manager)
         {
             InitializeComponent();
-            Header.Text = Tools.Translate("Manage {0} sources").Replace("{0}", Manager.Properties.Name);
+            Header.Text = Tools.Translate("Manage {0} sources", Manager.Properties.Name);
             AddSourceButton.Content = Tools.Translate("Add source");
             AddSourceButton.Click += async (sender, e) =>
             {

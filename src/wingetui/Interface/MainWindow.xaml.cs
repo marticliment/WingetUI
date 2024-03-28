@@ -199,7 +199,7 @@ namespace ModernWindow
             DiscoverPackages.ExecuteRequested += (s, e) => { NavigationPage.DiscoverNavButton.ForceClick(); Activate(); };
             AvailableUpdates.ExecuteRequested += (s, e) => { NavigationPage.UpdatesNavButton.ForceClick(); Activate(); };
             InstalledPackages.ExecuteRequested += (s, e) => { NavigationPage.InstalledNavButton.ForceClick(); Activate(); };
-            AboutWingetUI.Label = Tools.Translate("WingetUI Version {0}").Replace("{0}", CoreData.VersionName);
+            AboutWingetUI.Label = Tools.Translate("WingetUI Version {0}", CoreData.VersionName);
             ShowWingetUI.ExecuteRequested += (s, e) => { Activate(); };
             QuitWingetUI.ExecuteRequested += (s, e) => { Tools.App.DisposeAndQuit(); };
 
@@ -271,7 +271,7 @@ namespace ModernWindow
                 if (Tools.TooltipStatus.AvailableUpdates == 1)
                     tooltip = Tools.Translate("1 update is available") + " - " + Title;
                 else
-                    tooltip = Tools.Translate("{0} updates are available").Replace("{0}", Tools.TooltipStatus.AvailableUpdates.ToString()) + " - " + Title;
+                    tooltip = Tools.Translate("{0} updates are available", Tools.TooltipStatus.AvailableUpdates) + " - " + Title;
             }
 
             TrayIcon.ToolTipText = tooltip;

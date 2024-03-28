@@ -328,13 +328,13 @@ namespace ModernWindow.Interface
                     if (upgradablePackages.Count == 1)
                     {
                         title = Tools.Translate("An update was found!");
-                        body = Tools.Translate("{0} is being updated to version {1}").Replace("{0}", upgradablePackages[0].Name).Replace("{1}", upgradablePackages[0].NewVersion);
-                        attribution = Tools.Translate("You have currently version {0} installed").Replace("{0}", upgradablePackages[0].Version);
+                        body = Tools.Translate("{0} is being updated to version {1}", upgradablePackages[0].Name, upgradablePackages[0].NewVersion);
+                        attribution = Tools.Translate("You have currently version {0} installed", upgradablePackages[0].Version);
                     }
                     else
                     {
                         title = Tools.Translate("Updates found!");
-                        body = Tools.Translate("{0} packages are being updated").Replace("{0}", upgradablePackages.Count.ToString()); ;
+                        body = Tools.Translate("{0} packages are being updated", upgradablePackages.Count); ;
                         foreach (UpgradablePackage package in upgradablePackages)
                         {
                             attribution += package.Name + ", ";
@@ -348,13 +348,13 @@ namespace ModernWindow.Interface
                     if (upgradablePackages.Count == 1)
                     {
                         title = Tools.Translate("An update was found!");
-                        body = Tools.Translate("{0} can be updated to version {1}").Replace("{0}", upgradablePackages[0].Name).Replace("{1}", upgradablePackages[0].NewVersion);
-                        attribution = Tools.Translate("You have currently version {0} installed").Replace("{0}", upgradablePackages[0].Version);
+                        body = Tools.Translate("{0} can be updated to version {1}", upgradablePackages[0].Name, upgradablePackages[0].NewVersion);
+                        attribution = Tools.Translate("You have currently version {0} installed", upgradablePackages[0].Version);
                     }
                     else
                     {
                         title = Tools.Translate("Updates found!");
-                        body = Tools.Translate("{0} packages can be updated").Replace("{0}", upgradablePackages.Count.ToString()); ;
+                        body = Tools.Translate("{0} packages can be updated", upgradablePackages.Count); ;
                         foreach (UpgradablePackage package in upgradablePackages)
                         {
                             attribution += package.Name + ", ";
@@ -502,13 +502,13 @@ namespace ModernWindow.Interface
                     {
                         BackgroundText.Text = SourcesPlaceholderText.Text = Tools.AutoTranslated("Hooray! No updates were found.");
                         SourcesPlaceholderText.Text = Tools.Translate("Everything is up to date");
-                        MainSubtitle.Text = Tools.Translate("Everything is up to date") + " " + Tools.Translate("(Last checked: {0})").Replace("{0}", LastChecked.ToString());
+                        MainSubtitle.Text = Tools.Translate("Everything is up to date") + " " + Tools.Translate("(Last checked: {0})", LastChecked.ToString());
                     }
                     else
                     {
                         BackgroundText.Text = Tools.AutoTranslated("No results were found matching the input criteria");
                         SourcesPlaceholderText.Text = Tools.AutoTranslated("No packages were found");
-                        MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.").Replace("{0}", Packages.Count.ToString()).Replace("{1}", (FilteredPackages.Count()).ToString()) + " " + Tools.Translate("(Last checked: {0})").Replace("{0}", LastChecked.ToString());
+                        MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.", Packages.Count, FilteredPackages.Count()) + " " + Tools.Translate("(Last checked: {0})", LastChecked.ToString());
                     }
                     BackgroundText.Visibility = Visibility.Visible;
                 }
@@ -517,7 +517,7 @@ namespace ModernWindow.Interface
             else
             {
                 BackgroundText.Visibility = Visibility.Collapsed;
-                MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.").Replace("{0}", Packages.Count.ToString()).Replace("{1}", (FilteredPackages.Count()).ToString()) + " " + Tools.Translate("(Last checked: {0})").Replace("{0}", LastChecked.ToString());
+                MainSubtitle.Text = Tools.Translate("{0} packages were found, {1} of which match the specified filters.", Packages.Count, FilteredPackages.Count()) + " " + Tools.Translate("(Last checked: {0})", LastChecked.ToString());
             }
 
             Tools.App.MainWindow.NavigationPage.UpdatesBadge.Visibility = Packages.Count() == 0 ? Visibility.Collapsed : Visibility.Visible;

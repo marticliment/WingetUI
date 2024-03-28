@@ -30,7 +30,7 @@ namespace ModernWindow.Interface.Pages.AboutPages
         public AboutWingetUI()
         {
             this.InitializeComponent();
-            VersionText.Text = Tools.Translate("You have installed WingetUI Version {0}").Replace("{0}", CoreData.VersionName);
+            VersionText.Text = Tools.Translate("You have installed WingetUI Version {0}", CoreData.VersionName);
 
         }
     }

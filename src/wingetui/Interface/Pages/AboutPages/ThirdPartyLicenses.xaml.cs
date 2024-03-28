@@ -51,7 +51,7 @@ namespace ModernWindow.Interface.Pages.AboutPages
                     License = LicenseData.LicenseNames[license],
                     LicenseURL = LicenseData.LicenseURLs[license],
                     HomepageUrl = LicenseData.HomepageUrls[license],
-                    HomepageText = Tools.Translate("{0} homepage").Replace("{0}", license)
+                    HomepageText = Tools.Translate("{0} homepage", license)
                 });
             }
 

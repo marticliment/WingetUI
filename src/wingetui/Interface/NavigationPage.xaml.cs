@@ -152,7 +152,7 @@ namespace ModernWindow.Interface
                 button.ToggleButton.IsChecked = false;
             MoreNavButton.ToggleButton.IsChecked = true;
 
-            (VersionMenuItem as MenuFlyoutItem).Text = Tools.Translate("WingetUI Version {0}").Replace("{0}", CoreData.VersionName);
+            (VersionMenuItem as MenuFlyoutItem).Text = Tools.Translate("WingetUI Version {0}", CoreData.VersionName);
             MoreNavButtonMenu.ShowAt(MoreNavButton, new FlyoutShowOptions() { ShowMode = FlyoutShowMode.Standard });
 
             MoreNavButtonMenu.Closed += (s, e) =>
@@ -250,10 +250,10 @@ namespace ModernWindow.Interface
             p.Children.Add(new Image() { Source = new BitmapImage() { UriSource = new Uri("ms-appx:///Assets/Images/icon.png") }, Height = 96 });
 
             var par = new Paragraph();
-            par.Inlines.Add(new Run() { Text = Tools.Translate("WingetUI will become {newname} soon!").Replace("{newname}", NEW_NAME), FontSize = 24, FontWeight = new Windows.UI.Text.FontWeight(700), FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Bold") });
+            par.Inlines.Add(new Run() { Text = Tools.Translate("WingetUI will become {newname} soon!", new Dictionary<string, object>{ { "newname", NEW_NAME } }), FontSize = 24, FontWeight = new Windows.UI.Text.FontWeight(700), FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Bold") });
             par.Inlines.Add(new LineBreak());
             par.Inlines.Add(new LineBreak());
-            par.Inlines.Add(new Run() { Text = Tools.Translate("WingetUI will soon be named {newname}. This will not represent any change in the application. I (the developer) will continue the development of this project as I am doing right now, but under a different name.").Replace("{newname}", NEW_NAME) });
+            par.Inlines.Add(new Run() { Text = Tools.Translate("WingetUI will soon be named {newname}. This will not represent any change in the application. I (the developer) will continue the development of this project as I am doing right now, but under a different name.", new Dictionary<string, object>{ { "newname", NEW_NAME } }) });
             par.Inlines.Add(new LineBreak());
             par.Inlines.Add(new LineBreak());
             par.Inlines.Add(new Run() { Text = Tools.Translate("WingetUI is being renamed in order to emphasize the difference between WingetUI (the interface you are using right now) and Winget (a package manager developed by Microsoft with which I am not related)"), FontSize = 12, FontStyle = Windows.UI.Text.FontStyle.Italic });
@@ -287,7 +287,7 @@ namespace ModernWindow.Interface
                 OptionsDialog.SecondaryButtonText = "";
             OptionsDialog.PrimaryButtonText = Tools.Translate("Save and close");
             OptionsDialog.DefaultButton = ContentDialogButton.Secondary;
-            OptionsDialog.Title = Tools.Translate("{0} installation options").Replace("{0}", package.Name);
+            OptionsDialog.Title = Tools.Translate("{0} installation options", package.Name);
             OptionsDialog.Content = OptionsPage;
 
             ContentDialogResult result = await Tools.App.MainWindow.ShowDialogAsync(OptionsDialog);
@@ -312,7 +312,7 @@ namespace ModernWindow.Interface
             OptionsDialog.SecondaryButtonText = "";
             OptionsDialog.PrimaryButtonText = Tools.Translate("Save and close");
             OptionsDialog.DefaultButton = ContentDialogButton.Secondary;
-            OptionsDialog.Title = Tools.Translate("{0} installation options").Replace("{0}", package.Name);
+            OptionsDialog.Title = Tools.Translate("{0} installation options", package.Name);
             OptionsDialog.Content = OptionsPage;
             await Tools.App.MainWindow.ShowDialogAsync(OptionsDialog);
 

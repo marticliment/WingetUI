@@ -8,6 +8,7 @@ using ModernWindow.Interface.Widgets;
 using ModernWindow.PackageEngine.Classes;
 using ModernWindow.Structures;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -80,7 +81,7 @@ namespace ModernWindow.PackageEngine.Operations
                 currentIndex = Tools.OperationQueue.IndexOf(this);
                 if (currentIndex != oldIndex)
                 {
-                    LineInfoText = Tools.Translate("Operation on queue (position {0})...").Replace("{0}", currentIndex.ToString());
+                    LineInfoText = Tools.Translate("Operation on queue (position {0})...", currentIndex);
                     oldIndex = currentIndex;
                 }
                 await Task.Delay(100);
@@ -141,7 +142,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleFailure()
         {
-            LineInfoText = Tools.Translate("{package} installation failed").Replace("{package}", Package.Name);
+            LineInfoText = Tools.Translate("{package} installation failed", new Dictionary<string, object>{ { "package", Package.Name } });
 
             Package.SetTag(PackageTag.Failed);
 
@@ -151,7 +152,7 @@ namespace ModernWindow.PackageEngine.Operations
                         .AddArgument("action", "openWingetUI")
                         .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                         .AddText(Tools.Translate("Installation failed"))
-                        .AddText(Tools.Translate("{package} could not be installed").Replace("{package}", Package.Name)).Show();
+                        .AddText(Tools.Translate("{package} could not be installed", new Dictionary<string, object>{ { "package", Package.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -163,10 +164,10 @@ namespace ModernWindow.PackageEngine.Operations
             dialog.XamlRoot = XamlRoot;
             dialog.Resources["ContentDialogMaxWidth"] = 750;
             dialog.Resources["ContentDialogMaxHeight"] = 1000;
-            dialog.Title = Tools.Translate("{package} installation failed").Replace("{package}", Package.Name);
+            dialog.Title = Tools.Translate("{package} installation failed", new Dictionary<string, object>{ { "package", Package.Name } });
 
             StackPanel panel = new StackPanel() { Spacing = 16 };
-            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("{package} could not be installed").Replace("{package}", Package.Name) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
+            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("{package} could not be installed", new Dictionary<string, object>{ { "package", Package.Name } }) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
 
             Expander expander = new Expander() { CornerRadius = new CornerRadius(8) };
 
@@ -204,7 +205,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleSuccess()
         {
-            LineInfoText = Tools.Translate("{package} was installed successfully").Replace("{package}", Package.Name);
+            LineInfoText = Tools.Translate("{package} was installed successfully", new Dictionary<string, object>{ { "package", Package.Name } });
 
             Package.SetTag(PackageTag.AlreadyInstalled);
             Tools.App.MainWindow.NavigationPage.InstalledPage.AddInstalledPackage(Package);
@@ -216,7 +217,7 @@ namespace ModernWindow.PackageEngine.Operations
                     .AddArgument("action", "openWingetUI")
                     .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                     .AddText(Tools.Translate("Installation succeeded"))
-                    .AddText(Tools.Translate("{package} was installed successfully").Replace("{package}", Package.Name)).Show();
+                    .AddText(Tools.Translate("{package} was installed successfully", new Dictionary<string, object>{ { "package", Package.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -229,7 +230,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override void Initialize()
         {
-            OperationTitle = Tools.Translate("{package} Installation").Replace("{package}", Package.Name);
+            OperationTitle = Tools.Translate("{package} Installation", new Dictionary<string, object>{ { "package", Package.Name } });
             IconSource = Package.GetIconUrl();
         }
     }
@@ -282,7 +283,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleFailure()
         {
-            LineInfoText = Tools.Translate("{package} update failed. Click here for more details.").Replace("{package}", Package.Name);
+            LineInfoText = Tools.Translate("{package} update failed. Click here for more details.", new Dictionary<string, object>{ { "package", Package.Name } });
 
             Package.SetTag(PackageTag.Failed);
 
@@ -291,7 +292,7 @@ namespace ModernWindow.PackageEngine.Operations
                     .AddArgument("action", "openWingetUI")
                     .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                     .AddText(Tools.Translate("Update failed"))
-                    .AddText(Tools.Translate("{package} could not be updated").Replace("{package}", Package.Name)).Show();
+                    .AddText(Tools.Translate("{package} could not be updated", new Dictionary<string, object>{ { "package", Package.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -303,10 +304,10 @@ namespace ModernWindow.PackageEngine.Operations
             dialog.XamlRoot = XamlRoot;
             dialog.Resources["ContentDialogMaxWidth"] = 750;
             dialog.Resources["ContentDialogMaxHeight"] = 1000;
-            dialog.Title = Tools.Translate("{package} update failed").Replace("{package}", Package.Name);
+            dialog.Title = Tools.Translate("{package} update failed", new Dictionary<string, object>{ { "package", Package.Name } });
 
             StackPanel panel = new StackPanel() { Spacing = 16 };
-            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("{package} could not be updated").Replace("{package}", Package.Name) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
+            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("{package} could not be updated", new Dictionary<string, object>{ { "package", Package.Name } }) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
 
             Expander expander = new Expander() { CornerRadius = new CornerRadius(8) };
 
@@ -344,7 +345,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleSuccess()
         {
-            LineInfoText = Tools.Translate("{package} was updated successfully").Replace("{package}", Package.Name);
+            LineInfoText = Tools.Translate("{package} was updated successfully", new Dictionary<string, object>{ { "package", Package.Name } });
 
             Package.GetInstalledPackage()?.SetTag(PackageTag.Default);
             Package.GetAvailablePackage()?.SetTag(PackageTag.AlreadyInstalled);
@@ -355,7 +356,7 @@ namespace ModernWindow.PackageEngine.Operations
                 .AddArgument("action", "openWingetUI")
                 .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                 .AddText(Tools.Translate("Update succeeded"))
-                .AddText(Tools.Translate("{package} was updated successfully").Replace("{package}", Package.Name)).Show();
+                .AddText(Tools.Translate("{package} was updated successfully", new Dictionary<string, object>{ { "package", Package.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -371,7 +372,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override void Initialize()
         {
-            OperationTitle = Tools.Translate("{package} Update").Replace("{package}", Package.Name);
+            OperationTitle = Tools.Translate("{package} Update", new Dictionary<string, object>{ { "package", Package.Name } });
             IconSource = Package.GetIconUrl();
         }
     }
@@ -425,7 +426,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleFailure()
         {
-            LineInfoText = Tools.Translate("{package} uninstall failed").Replace("{package}", Package.Name);
+            LineInfoText = Tools.Translate("{package} uninstall failed", new Dictionary<string, object>{ { "package", Package.Name } });
 
             Package.SetTag(PackageTag.Failed);
 
@@ -434,7 +435,7 @@ namespace ModernWindow.PackageEngine.Operations
                     .AddArgument("action", "openWingetUI")
                     .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                     .AddText(Tools.Translate("Uninstall failed"))
-                    .AddText(Tools.Translate("{package} could not be uninstalled").Replace("{package}", Package.Name)).Show();
+                    .AddText(Tools.Translate("{package} could not be uninstalled", new Dictionary<string, object>{ { "package", Package.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -447,10 +448,10 @@ namespace ModernWindow.PackageEngine.Operations
             dialog.XamlRoot = XamlRoot;
             dialog.Resources["ContentDialogMaxWidth"] = 750;
             dialog.Resources["ContentDialogMaxHeight"] = 1000;
-            dialog.Title = Tools.Translate("{package} uninstall failed").Replace("{package}", Package.Name);
+            dialog.Title = Tools.Translate("{package} uninstall failed", new Dictionary<string, object>{ { "package", Package.Name } });
 
             StackPanel panel = new StackPanel() { Spacing = 16 };
-            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("{package} could not be uninstalled").Replace("{package}", Package.Name) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
+            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("{package} could not be uninstalled", new Dictionary<string, object>{ { "package", Package.Name } }) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
 
             Expander expander = new Expander() { CornerRadius = new CornerRadius(8) };
 
@@ -488,7 +489,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleSuccess()
         {
-            LineInfoText = Tools.Translate("{package} was uninstalled successfully").Replace("{package}", Package.Name);
+            LineInfoText = Tools.Translate("{package} was uninstalled successfully", new Dictionary<string, object>{ { "package", Package.Name } });
 
             Package.GetAvailablePackage()?.SetTag(PackageTag.Default);
             Tools.App.MainWindow.NavigationPage.UpdatesPage.RemoveCorrespondingPackages(Package);
@@ -499,7 +500,7 @@ namespace ModernWindow.PackageEngine.Operations
                 .AddArgument("action", "openWingetUI")
                 .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                 .AddText(Tools.Translate("Uninstall succeeded"))
-                .AddText(Tools.Translate("{package} was uninstalled successfully").Replace("{package}", Package.Name)).Show();
+                .AddText(Tools.Translate("{package} was uninstalled successfully", new Dictionary<string, object>{ { "package", Package.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -512,7 +513,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override void Initialize()
         {
-            OperationTitle = Tools.Translate("{package} Uninstall").Replace("{package}", Package.Name);
+            OperationTitle = Tools.Translate("{package} Uninstall", new Dictionary<string, object>{ { "package", Package.Name } });
             IconSource = Package.GetIconUrl();
         }
     }

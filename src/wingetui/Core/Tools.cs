@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.WinUI.Helpers;
+using Jeffijoe.MessageFormat;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ModernWindow.Core.Data;
@@ -160,9 +161,23 @@ namespace ModernWindow.Structures
         /// </summary>
         /// <param name="text">The string to translate</param>
         /// <returns>The translated string if available, the original string otherwise</returns>
-        public string Translate(string text)
-        {
+        public string Translate(string text) {
             return LanguageEngine.Translate(text);
+        }
+
+        public string Translate(string text, Dictionary<string, object> dict)
+        {
+            return MessageFormatter.Format(LanguageEngine.Translate(text), dict);
+        }
+
+        public string Translate(string text, params object[] values)
+        {
+            var dict = new Dictionary<string, object>();
+            foreach (var (item, index) in values?.Select((item, index) => (item, index)))
+            {
+                dict.Add(index.ToString(), item);
+            }
+            return MessageFormatter.Format(LanguageEngine.Translate(text), dict);
         }
 
         /// <summary>
@@ -349,7 +364,7 @@ Crash Traceback:
                     Log("Latest version : " + LatestVersion.ToString(CultureInfo.InvariantCulture));
 
                     banner = App.MainWindow.UpdatesBanner;
-                    banner.Title= Translate("WingetUI version {0} is being downloaded.").Replace("{0}", LatestVersion.ToString(CultureInfo.InvariantCulture));
+                    banner.Title= Translate("WingetUI version {0} is being downloaded.", LatestVersion.ToString(CultureInfo.InvariantCulture));
                     banner.Message = Translate("This may take a minute or two");
                     banner.Severity = InfoBarSeverity.Informational;
                     banner.IsOpen = true;
@@ -375,7 +390,7 @@ Crash Traceback:
                     if (Hash == InstallerHash)
                     {
 
-                        banner.Title = Translate("WingetUI {0} is ready to be installed.").Replace("{0}", LatestVersion.ToString(CultureInfo.InvariantCulture));
+                        banner.Title = Translate("WingetUI {0} is ready to be installed.", LatestVersion.ToString(CultureInfo.InvariantCulture));
                         banner.Message = Translate("The update will be installed upon closing WingetUI");
                         banner.ActionButton = new Button();
                         banner.ActionButton.Content = Translate("Update now");

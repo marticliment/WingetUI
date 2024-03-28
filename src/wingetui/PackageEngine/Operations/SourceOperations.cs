@@ -8,6 +8,7 @@ using ModernWindow.Interface.Widgets;
 using ModernWindow.PackageEngine.Classes;
 using ModernWindow.Structures;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -72,7 +73,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleFailure()
         {
-            LineInfoText = Tools.Translate("Could not add source {source} to {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name);
+            LineInfoText = Tools.Translate("Could not add source {source} to {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } });
             if (!Tools.GetSettings("DisableErrorNotifications") && !Tools.GetSettings("DisableNotifications"))
                 try
                 {
@@ -80,7 +81,7 @@ namespace ModernWindow.PackageEngine.Operations
                     .AddArgument("action", "openWingetUI")
                     .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                     .AddText(Tools.Translate("Installation failed"))
-                    .AddText(Tools.Translate("Could not add source {source} to {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name)).Show();
+                    .AddText(Tools.Translate("Could not add source {source} to {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -95,7 +96,7 @@ namespace ModernWindow.PackageEngine.Operations
             dialog.Title = Tools.Translate("Source addition failed");
 
             StackPanel panel = new StackPanel() { Spacing = 16 };
-            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("Could not add source {source} to {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
+            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("Could not add source {source} to {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } }) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
 
             Expander expander = new Expander() { CornerRadius = new CornerRadius(8) };
 
@@ -134,7 +135,7 @@ namespace ModernWindow.PackageEngine.Operations
         protected override async Task<AfterFinshAction> HandleSuccess()
         {
             OperationSucceeded?.Invoke(this, new EventArgs());
-            LineInfoText = Tools.Translate("The source {source} was added to {manager} successfully").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name);
+            LineInfoText = Tools.Translate("The source {source} was added to {manager} successfully", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } });
             if (!Tools.GetSettings("DisableSuccessNotifications") && !Tools.GetSettings("DisableNotifications"))
                 
                 try{
@@ -142,7 +143,7 @@ namespace ModernWindow.PackageEngine.Operations
                     .AddArgument("action", "openWingetUI")
                     .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                     .AddText(Tools.Translate("Addition succeeded"))
-                    .AddText(Tools.Translate("The source {source} was added to {manager} successfully").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name)).Show();
+                    .AddText(Tools.Translate("The source {source} was added to {manager} successfully", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -155,7 +156,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override void Initialize()
         {
-            OperationTitle = Tools.Translate("Adding source {source} to {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name);
+            OperationTitle = Tools.Translate("Adding source {source} to {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } });
             IconSource = new Uri("ms-appx:///Assets/Images/" + Source.Manager.Properties.ColorIconId + ".png");
         }
     }
@@ -208,13 +209,13 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override async Task<AfterFinshAction> HandleFailure()
         {
-            LineInfoText = Tools.Translate("Could not remove source {source} from {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name);
+            LineInfoText = Tools.Translate("Could not remove source {source} from {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } });
             if (!Tools.GetSettings("DisableErrorNotifications") && !Tools.GetSettings("DisableNotifications"))
                 new ToastContentBuilder()
                     .AddArgument("action", "openWingetUI")
                     .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                     .AddText(Tools.Translate("Removal failed"))
-                    .AddText(Tools.Translate("Could not remove source {source} from {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name)).Show();
+                    .AddText(Tools.Translate("Could not remove source {source} from {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } })).Show();
 
             ContentDialog dialog = new();
             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
@@ -224,7 +225,7 @@ namespace ModernWindow.PackageEngine.Operations
             dialog.Title = Tools.Translate("Source removal failed");
 
             StackPanel panel = new StackPanel() { Spacing = 16 };
-            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("Could not remove source {source} from {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
+            panel.Children.Add(new TextBlock() { TextWrapping = TextWrapping.WrapWholeWords, Text = Tools.Translate("Could not remove source {source} from {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } }) + ". " + Tools.Translate("Please see the Command-line Output or refer to the Operation History for further information about the issue.") });
 
             Expander expander = new Expander() { CornerRadius = new CornerRadius(8) };
 
@@ -263,14 +264,14 @@ namespace ModernWindow.PackageEngine.Operations
         protected override async Task<AfterFinshAction> HandleSuccess()
         {
             OperationSucceeded?.Invoke(this, new EventArgs());
-            LineInfoText = Tools.Translate("The source {source} was removed from {manager} successfully").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name);
+            LineInfoText = Tools.Translate("The source {source} was removed from {manager} successfully", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } });
             if (!Tools.GetSettings("DisableSuccessNotifications") && !Tools.GetSettings("DisableNotifications"))
                 try { 
                 new ToastContentBuilder()
                     .AddArgument("action", "openWingetUI")
                     .AddArgument("notificationId", CoreData.VolatileNotificationIdCounter)
                     .AddText(Tools.Translate("Removal succeeded"))
-                    .AddText(Tools.Translate("The source {source} was removed from {manager} successfully").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name)).Show();
+                    .AddText(Tools.Translate("The source {source} was removed from {manager} successfully", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } })).Show();
 
                 }
                 catch (Exception ex)
@@ -283,7 +284,7 @@ namespace ModernWindow.PackageEngine.Operations
 
         protected override void Initialize()
         {
-            OperationTitle = Tools.Translate("Removing source {source} from {manager}").Replace("{source}", Source.Name).Replace("{manager}", Source.Manager.Name);
+            OperationTitle = Tools.Translate("Removing source {source} from {manager}", new Dictionary<string, object>{ { "source", Source.Name }, { "manager", Source.Manager.Name } });
             IconSource = new Uri("ms-appx:///Assets/Images/" + Source.Manager.Properties.ColorIconId + ".png");
         }
     }

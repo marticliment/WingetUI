@@ -71,7 +71,7 @@ namespace ModernWindow.Interface.Dialogs
             IdTextBlock.Text = package.Id;
             VersionTextBlock.Text = package.Version;
             if (package is UpgradablePackage)
-                VersionTextBlock.Text += " - " + Tools.Translate("Update to {0} available").Replace("{0}", (package as UpgradablePackage).NewVersion);
+                VersionTextBlock.Text += " - " + Tools.Translate("Update to {0} available", (package as UpgradablePackage).NewVersion);
             PackageName.Text = package.Name;
             PackageIcon.Source = new BitmapImage() { UriSource = package.GetIconUrl() };
             SourceNameTextBlock.Text = package.SourceAsString;

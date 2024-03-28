@@ -59,16 +59,16 @@ namespace ModernWindow.Interface
 
             Dictionary<string, string> updates_dict = new()
             {
-                {Tools.Translate("{0} minutes").Replace("{0}", "10"), "600"},
-                {Tools.Translate("{0} minutes").Replace("{0}", "30"), "1800"},
+                {Tools.Translate("{0} minutes", 10), "600"},
+                {Tools.Translate("{0} minutes", 30), "1800"},
                 {Tools.Translate("1 hour"), "3600"},
-                {Tools.Translate("{0} hours").Replace("{0}", "2"), "7200"},
-                {Tools.Translate("{0} hours").Replace("{0}", "4"), "14400"},
-                {Tools.Translate("{0} hours").Replace("{0}", "8"), "28800"},
-                {Tools.Translate("{0} hours").Replace("{0}", "12"), "43200"},
+                {Tools.Translate("{0} hours", 2), "7200"},
+                {Tools.Translate("{0} hours", 4), "14400"},
+                {Tools.Translate("{0} hours", 8), "28800"},
+                {Tools.Translate("{0} hours", 12), "43200"},
                 {Tools.Translate("1 day"), "86400"},
-                {Tools.Translate("{0} days").Replace("{0}", "2"), "172800"},
-                {Tools.Translate("{0} days").Replace("{0}", "3"), "259200"},
+                {Tools.Translate("{0} days", 2), "172800"},
+                {Tools.Translate("{0} days", 3), "259200"},
                 {Tools.Translate("1 week"), "604800"}
             };
 
@@ -197,12 +197,12 @@ namespace ModernWindow.Interface
                     if (Manager.IsEnabled() && Manager.Status.Found)
                     {
                         ManagerStatus.Severity = InfoBarSeverity.Success;
-                        ManagerStatus.Title = Tools.Translate("{pm} is enabled and ready to go").Replace("{pm}", Manager.Name);
+                        ManagerStatus.Title = Tools.Translate("{pm} is enabled and ready to go", new Dictionary<string, object>{ { "pm", Manager.Name } });
                         if (!Manager.Status.Version.Contains("\n"))
-                            ManagerStatus.Message = Tools.Translate("{pm} version:").Replace("{pm}", Manager.Name) + " " + Manager.Status.Version;
+                            ManagerStatus.Message = Tools.Translate("{pm} version:", new Dictionary<string, object>{ { "pm", Manager.Name } }) + " " + Manager.Status.Version;
                         else if (ShowVersion)
                         {
-                            ManagerStatus.Message = Tools.Translate("{pm} version:").Replace("{pm}", Manager.Name);
+                            ManagerStatus.Message = Tools.Translate("{pm} version:", new Dictionary<string, object>{ { "pm", Manager.Name } });
                             LongVersion.Visibility = Visibility.Visible;
                         }
                         else
@@ -215,14 +215,14 @@ namespace ModernWindow.Interface
                     else if (Manager.IsEnabled() && !Manager.Status.Found)
                     {
                         ManagerStatus.Severity = InfoBarSeverity.Error;
-                        ManagerStatus.Title = Tools.Translate("{pm} was not found!").Replace("{pm}", Manager.Name);
-                        ManagerStatus.Message = Tools.Translate("You may need to install {pm} in order to use it with WingetUI.").Replace("{pm}", Manager.Name);
+                        ManagerStatus.Title = Tools.Translate("{pm} was not found!", new Dictionary<string, object>{ { "pm", Manager.Name } });
+                        ManagerStatus.Message = Tools.Translate("You may need to install {pm} in order to use it with WingetUI.", new Dictionary<string, object>{ { "pm", Manager.Name } });
                     }
                     else if (!Manager.IsEnabled())
                     {
                         ManagerStatus.Severity = InfoBarSeverity.Informational;
-                        ManagerStatus.Title = Tools.Translate("{pm} is disabled").Replace("{pm}", Manager.Name);
-                        ManagerStatus.Message = Tools.Translate("Enable it to install packages from {pm}.").Replace("{pm}", Manager.Name);
+                        ManagerStatus.Title = Tools.Translate("{pm} is disabled", new Dictionary<string, object>{ { "pm", Manager.Name } });
+                        ManagerStatus.Message = Tools.Translate("Enable it to install packages from {pm}.", new Dictionary<string, object>{ { "pm", Manager.Name } });
                     }
                 }
 
