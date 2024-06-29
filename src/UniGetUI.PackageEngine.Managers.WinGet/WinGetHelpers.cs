@@ -4,8 +4,9 @@ using System.Text.RegularExpressions;
 using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.Tools;
-using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 using WindowsPackageManager.Interop;
 using Deployment = Microsoft.Management.Deployment;
@@ -36,10 +37,10 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
     internal interface IWinGetPackageHelper
     {
 
-        public Task<Package[]> FindPackages_UnSafe(WinGet ManagerInstance, string query);
-        public Task<ManagerSource[]> GetSources_UnSafe(WinGet ManagerInstance);
-        public Task<string[]> GetPackageVersions_Unsafe(WinGet ManagerInstance, Package package);
-        public Task GetPackageDetails_UnSafe(WinGet ManagerInstance, PackageDetails details);
+        public Task<IPackage[]> FindPackages_UnSafe(WinGet ManagerInstance, string query);
+        public Task<IManagerSource[]> GetSources_UnSafe(WinGet ManagerInstance);
+        public Task<string[]> GetPackageVersions_Unsafe(WinGet ManagerInstance, IPackage package);
+        public Task GetPackageDetails_UnSafe(WinGet ManagerInstance, IPackageDetails details);
 
     }
 
@@ -57,7 +58,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
         }
 
 
-        public async Task<Package[]> FindPackages_UnSafe(WinGet ManagerInstance, string query)
+        public async Task<IPackage[]> FindPackages_UnSafe(WinGet ManagerInstance, string query)
         {
             ManagerClasses.Classes.NativeTaskLogger logger = ManagerInstance.TaskLogger.CreateNew(LoggableTaskType.FindPackages);
 
@@ -126,7 +127,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
                 try
                 {
                     // Get the source for the catalog
-                    ManagerSource source = ManagerInstance.GetSourceOrDefault(CatalogTaskPair.Key.Info.Name);
+                    IManagerSource source = ManagerInstance.GetSourceOrDefault(CatalogTaskPair.Key.Info.Name);
 
                     FindPackagesResult FoundPackages = CatalogTaskPair.Value.Result;
                     foreach (MatchResult package in FoundPackages.Matches.ToArray())
@@ -153,9 +154,9 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             return Packages.ToArray();
         }
 
-        public async Task<ManagerSource[]> GetSources_UnSafe(WinGet ManagerInstance)
+        public async Task<IManagerSource[]> GetSources_UnSafe(WinGet ManagerInstance)
         {
-            List<ManagerSource> sources = new();
+            List<IManagerSource> sources = new();
             ManagerClasses.Classes.NativeTaskLogger logger = ManagerInstance.TaskLogger.CreateNew(LoggableTaskType.ListSources);
 
             foreach (PackageCatalogReference catalog in await Task.Run(() => WinGetManager.GetPackageCatalogs().ToArray()))
@@ -172,7 +173,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             return sources.ToArray();
         }
 
-        public async Task<string[]> GetPackageVersions_Unsafe(WinGet ManagerInstance, Package package)
+        public async Task<string[]> GetPackageVersions_Unsafe(WinGet ManagerInstance, IPackage package)
         {
             ManagerClasses.Classes.NativeTaskLogger logger = ManagerInstance.TaskLogger.CreateNew(LoggableTaskType.LoadPackageVersions);
 
@@ -220,7 +221,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             return versions ?? [];
         }
 
-        public async Task GetPackageDetails_UnSafe(WinGet ManagerInstance, PackageDetails details)
+        public async Task GetPackageDetails_UnSafe(WinGet ManagerInstance, IPackageDetails details)
         {
             ManagerClasses.Classes.NativeTaskLogger logger = ManagerInstance.TaskLogger.CreateNew(LoggableTaskType.LoadPackageDetails);
 
@@ -377,7 +378,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             WinGetBundledPath = Path.Join(CoreData.UniGetUIExecutableDirectory, "PackageEngine", "Managers", "winget-cli_x64", "winget.exe");
         }
 
-        public async Task<Package[]> FindPackages_UnSafe(WinGet ManagerInstance, string query)
+        public async Task<IPackage[]> FindPackages_UnSafe(WinGet ManagerInstance, string query)
         {
             List<Package> Packages = new();
 
@@ -433,7 +434,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
                 if (elements.Length < 4)
                     continue;
 
-                ManagerSource source = ManagerInstance.GetSourceOrDefault(elements[3]);
+                IManagerSource source = ManagerInstance.GetSourceOrDefault(elements[3]);
 
                 Packages.Add(new Package(elements[0][1..], elements[1], elements[2], source, ManagerInstance));
             }
@@ -446,7 +447,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
 
         }
 
-        public async Task GetPackageDetails_UnSafe(WinGet ManagerInstance, PackageDetails details)
+        public async Task GetPackageDetails_UnSafe(WinGet ManagerInstance, IPackageDetails details)
         {
             if (details.Package.Source.Name == "winget")
                 details.ManifestUrl = new Uri("https://github.com/microsoft/winget-pkgs/tree/master/manifests/"
@@ -637,7 +638,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             return;
         }
 
-        public async Task<string[]> GetPackageVersions_Unsafe(WinGet ManagerInstance, Package package)
+        public async Task<string[]> GetPackageVersions_Unsafe(WinGet ManagerInstance, IPackage package)
         {
             Process p = new()
             {
@@ -678,7 +679,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             return versions.ToArray();
         }
 
-        public async Task<ManagerSource[]> GetSources_UnSafe(WinGet ManagerInstance)
+        public async Task<IManagerSource[]> GetSources_UnSafe(WinGet ManagerInstance)
         {
             List<ManagerSource> sources = new();
 

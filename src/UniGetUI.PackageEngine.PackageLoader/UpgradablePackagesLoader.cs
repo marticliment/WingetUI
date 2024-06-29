@@ -1,6 +1,7 @@
 ﻿using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Interface.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.PackageClasses;
 
@@ -17,7 +18,7 @@ namespace UniGetUI.PackageEngine.PackageLoader
             FinishedLoading += (s, e) => StartAutoCheckTimeout();
         }
 
-        protected override async Task<bool> IsPackageValid(Package package)
+        protected override async Task<bool> IsPackageValid(IPackage package)
         {
             if (await package.HasUpdatesIgnoredAsync(package.NewVersion))
                 return false;
@@ -28,12 +29,12 @@ namespace UniGetUI.PackageEngine.PackageLoader
             return true;
         }
 
-        protected override Task<Package[]> LoadPackagesFromManager(PackageManager manager)
+        protected override Task<IPackage[]> LoadPackagesFromManager(IPackageManager manager)
         {
             return manager.GetAvailableUpdates();
         }
 #pragma warning disable 
-        protected override async Task WhenAddingPackage(Package package)
+        protected override async Task WhenAddingPackage(IPackage package)
         {
             package.GetAvailablePackage()?.SetTag(PackageTag.IsUpgradable);
             package.GetInstalledPackage()?.SetTag(PackageTag.IsUpgradable);

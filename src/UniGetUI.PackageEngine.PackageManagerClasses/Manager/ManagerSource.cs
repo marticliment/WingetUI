@@ -1,27 +1,20 @@
 ﻿using UniGetUI.PackageEngine.ManagerClasses.Manager;
+using UniGetUI.PackageEngine.Interfaces;
 
-namespace UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers
+namespace UniGetUI.PackageEngine.Classes.Manager
 {
-    public class ManagerSource
+    public class ManagerSource : IManagerSource
     {
         public virtual string IconId { get { return Manager.Properties.IconId; } }
-        public readonly bool IsVirtualManager = false;
-        public struct Capabilities
-        {
-            public bool KnowsUpdateDate { get; set; } = false;
-            public bool KnowsPackageCount { get; set; } = false;
-            public bool MustBeInstalledAsAdmin { get; set; } = false;
-            public Capabilities()
-            { }
-        }
+        public bool IsVirtualManager { get; }
 
-        public PackageManager Manager { get; }
+        public IPackageManager Manager { get; }
         public string Name { get; }
-        public Uri Url { get; private set; }
+        public Uri Url { get; set; }
         public int? PackageCount { get; }
         public string UpdateDate { get; }
 
-        public ManagerSource(PackageManager manager, string name, Uri url, int? packageCount = 0, string updateDate = "", bool isVirtualManager = false)
+        public ManagerSource(IPackageManager manager, string name, Uri url, int? packageCount = 0, string updateDate = "", bool isVirtualManager = false)
         {
             IsVirtualManager = isVirtualManager;
             Manager = manager;

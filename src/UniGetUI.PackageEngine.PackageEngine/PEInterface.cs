@@ -28,6 +28,7 @@ namespace UniGetUI.PackageEngine
         public static readonly DiscoverablePackagesLoader DiscoveredPackagesLoader = new(Managers);
         public static readonly UpgradablePackagesLoader UpgradablePackagesLoader = new(Managers);
         public static readonly InstalledPackagesLoader InstalledPackagesLoader = new(Managers);
+        public static readonly PackageBundlesLoader PackageBundlesLoader = new(Managers);
 
         public static async Task Initialize()
         {

@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 using UniGetUI.Core.Logging;
-using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Manager.Providers;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 
 namespace UniGetUI.PackageEngine.Managers.ScoopManager
@@ -12,27 +13,27 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
     {
         public ScoopSourceProvider(Scoop manager) : base(manager) { }
 
-        public override OperationVeredict GetAddSourceOperationVeredict(ManagerSource source, int ReturnCode, string[] Output)
+        public override OperationVeredict GetAddSourceOperationVeredict(IManagerSource source, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
 
-        public override string[] GetAddSourceParameters(ManagerSource source)
+        public override string[] GetAddSourceParameters(IManagerSource source)
         {
             return new string[] { "bucket", "add", source.Name, source.Url.ToString() };
         }
 
-        public override OperationVeredict GetRemoveSourceOperationVeredict(ManagerSource source, int ReturnCode, string[] Output)
+        public override OperationVeredict GetRemoveSourceOperationVeredict(IManagerSource source, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
 
-        public override string[] GetRemoveSourceParameters(ManagerSource source)
+        public override string[] GetRemoveSourceParameters(IManagerSource source)
         {
             return new string[] { "bucket", "rm", source.Name };
         }
 
-        protected override async Task<ManagerSource[]> GetSources_UnSafe()
+        protected override async Task<IManagerSource[]> GetSources_UnSafe()
         {
             using (Process p = new())
             {

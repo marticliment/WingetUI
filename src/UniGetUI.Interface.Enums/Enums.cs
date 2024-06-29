@@ -11,6 +11,7 @@
         Pinned,
         OnQueue,
         BeingProcessed,
-        Failed
+        Failed,
+        Unavailable
     }
 }

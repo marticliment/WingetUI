@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 using UniGetUI.Core.Tools;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Classes;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.PackageClasses;
@@ -44,7 +46,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
             PackageDetailsProvider = new PipPackageDetailsProvider(this);
         }
         
-        protected override async Task<Package[]> FindPackages_UnSafe(string query)
+        protected override async Task<IPackage[]> FindPackages_UnSafe(string query)
         {
             List<Package> Packages = new();
 
@@ -123,7 +125,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetAvailableUpdates_UnSafe()
+        protected override async Task<IPackage[]> GetAvailableUpdates_UnSafe()
         {
             Process p = new();
             p.StartInfo = new ProcessStartInfo()
@@ -172,7 +174,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetInstalledPackages_UnSafe()
+        protected override async Task<IPackage[]> GetInstalledPackages_UnSafe()
         {
 
             Process p = new();
@@ -222,7 +224,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
             return Packages.ToArray();
         }
 
-        public override OperationVeredict GetInstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetInstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             string output_string = string.Join("\n", Output);
 
@@ -237,22 +239,22 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
                 return OperationVeredict.Failed;
         }
 
-        public override OperationVeredict GetUpdateOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUpdateOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return GetInstallOperationVeredict(package, options, ReturnCode, Output);
         }
 
-        public override OperationVeredict GetUninstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUninstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return GetInstallOperationVeredict(package, options, ReturnCode, Output);
         }
-        public override string[] GetInstallParameters(Package package, InstallationOptions options)
+        public override string[] GetInstallParameters(IPackage package, IInstallationOptions options)
         {
             string[] parameters = GetUpdateParameters(package, options);
             parameters[0] = Properties.InstallVerb;
             return parameters;
         }
-        public override string[] GetUpdateParameters(Package package, InstallationOptions options)
+        public override string[] GetUpdateParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = GetUninstallParameters(package, options).ToList();
             parameters[0] = Properties.UpdateVerb;
@@ -271,7 +273,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
             return parameters.ToArray();
         }
 
-        public override string[] GetUninstallParameters(Package package, InstallationOptions options)
+        public override string[] GetUninstallParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = new() { Properties.UninstallVerb, package.Id, "--yes", "--no-input", "--no-color", "--no-python-version-warning", "--no-cache" };
 

@@ -5,16 +5,17 @@ using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
-using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 
 namespace UniGetUI.PackageEngine.Operations
 {
 
     public abstract class SourceOperation : AbstractOperation
     {
-        protected ManagerSource Source;
-        public SourceOperation(ManagerSource source)
+        protected IManagerSource Source;
+        public SourceOperation(IManagerSource source)
         {
             Source = source;
             MainProcedure();
@@ -25,7 +26,7 @@ namespace UniGetUI.PackageEngine.Operations
     {
 
         public event EventHandler<EventArgs>? OperationSucceeded;
-        public AddSourceOperation(ManagerSource source) : base(source) { }
+        public AddSourceOperation(IManagerSource source) : base(source) { }
         protected override async Task<Process> BuildProcessInstance(ProcessStartInfo startInfo)
         {
             if (Source.Manager.Capabilities.Sources.MustBeInstalledAsAdmin)
@@ -128,7 +129,7 @@ namespace UniGetUI.PackageEngine.Operations
     {
 
         public event EventHandler<EventArgs>? OperationSucceeded;
-        public RemoveSourceOperation(ManagerSource source) : base(source) { }
+        public RemoveSourceOperation(IManagerSource source) : base(source) { }
         protected override async Task<Process> BuildProcessInstance(ProcessStartInfo startInfo)
         {
             if (Source.Manager.Capabilities.Sources.MustBeInstalledAsAdmin)

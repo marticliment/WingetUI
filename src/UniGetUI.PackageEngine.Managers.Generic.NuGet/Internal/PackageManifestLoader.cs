@@ -1,5 +1,6 @@
 ﻿using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 
 namespace UniGetUI.PackageEngine.Managers.Generic.NuGet.Internal
@@ -13,7 +14,7 @@ namespace UniGetUI.PackageEngine.Managers.Generic.NuGet.Internal
         /// </summary>
         /// <param name="package">A valid Package object</param>
         /// <returns>A Uri object</returns>
-        public static Uri GetPackageManifestUrl(Package package)
+        public static Uri GetPackageManifestUrl(IPackage package)
         {
             return new Uri($"{package.Source.Url}/Packages(Id='{package.Id}',Version='{package.Version}')");
         }
@@ -23,7 +24,7 @@ namespace UniGetUI.PackageEngine.Managers.Generic.NuGet.Internal
         /// </summary>
         /// <param name="package">A valid Package object</param>
         /// <returns>A Uri object</returns>
-        public static Uri GetPackageNuGetPackageUrl(Package package)
+        public static Uri GetPackageNuGetPackageUrl(IPackage package)
         {
             return new Uri($"{package.Source.Url}/Packages/{package.Id}.{package.Version}.nupkg");
         }
@@ -33,7 +34,7 @@ namespace UniGetUI.PackageEngine.Managers.Generic.NuGet.Internal
         /// </summary>
         /// <param name="package">The package for which to obtain the manifest</param>
         /// <returns>A string containing the contents of the manifest</returns>
-        public static async Task<string?> GetPackageManifestContent(Package package)
+        public static async Task<string?> GetPackageManifestContent(IPackage package)
         {
             string? PackageManifestContent = "";
             string PackageManifestUrl = GetPackageManifestUrl(package).ToString();

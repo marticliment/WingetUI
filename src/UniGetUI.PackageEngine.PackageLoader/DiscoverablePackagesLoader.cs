@@ -1,5 +1,6 @@
 ﻿using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.PackageClasses;
 
@@ -26,24 +27,24 @@ namespace UniGetUI.PackageEngine.PackageLoader
         }
 
 #pragma warning disable
-        protected override async Task<bool> IsPackageValid(Package package)
+        protected override async Task<bool> IsPackageValid(IPackage package)
         {
             return true;
         }
 #pragma warning restore
 
-        protected override Task<Package[]> LoadPackagesFromManager(PackageManager manager)
+        protected override Task<IPackage[]> LoadPackagesFromManager(IPackageManager manager)
         {
             string text = QUERY_TEXT;
             text = CoreTools.EnsureSafeQueryString(text);
             if (text == string.Empty)
-                return new Task<Package[]>(() => { return []; });
+                return new Task<IPackage[]>(() => { return []; });
             else
                 return manager.FindPackages(text);
         }
 
 #pragma warning disable
-        protected override async Task WhenAddingPackage(Package package)
+        protected override async Task WhenAddingPackage(IPackage package)
         {
             if (package.GetUpgradablePackage() != null)
                 package.SetTag(PackageTag.IsUpgradable);

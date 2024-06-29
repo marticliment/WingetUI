@@ -1,12 +1,13 @@
 ﻿using UniGetUI.Core.IconEngine;
 using UniGetUI.Core.Logging;
-using UniGetUI.PackageEngine.Classes.Manager.Interfaces;
+using UniGetUI.PackageEngine.Interfaces;
+using UniGetUI.PackageEngine.Interfaces.ManagerProviders;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.PackageClasses;
 
 namespace UniGetUI.PackageEngine.Classes.Manager.BaseProviders
 {
-    public abstract class BasePackageDetailsProvider<T> : IPackageDetailsProvider where T : PackageManager
+    public abstract class BasePackageDetailsProvider<T> : IPackageDetailsProvider where T : IPackageManager
     {
         protected T Manager;
 
@@ -15,12 +16,12 @@ namespace UniGetUI.PackageEngine.Classes.Manager.BaseProviders
             Manager = manager;
         }
 
-        public async Task GetPackageDetails(PackageDetails details)
+        public async Task GetPackageDetails(IPackageDetails details)
         {
             await GetPackageDetails_Unsafe(details);
         }
 
-        public async Task<string[]> GetPackageVersions(Package package)
+        public async Task<string[]> GetPackageVersions(IPackage package)
         {
             if (Manager.Capabilities.SupportsCustomVersions)
             {
@@ -35,7 +36,7 @@ namespace UniGetUI.PackageEngine.Classes.Manager.BaseProviders
             }
         }
 
-        public async Task<CacheableIcon?> GetPackageIconUrl(Package package)
+        public async Task<CacheableIcon?> GetPackageIconUrl(IPackage package)
         {
             CacheableIcon? Icon = null;
             if (Manager.Capabilities.SupportsCustomPackageIcons)
@@ -64,7 +65,7 @@ namespace UniGetUI.PackageEngine.Classes.Manager.BaseProviders
             return Icon;
         }
 
-        public async Task<Uri[]> GetPackageScreenshotsUrl(Package package)
+        public async Task<Uri[]> GetPackageScreenshotsUrl(IPackage package)
         {
             Uri[] URIs = [];
 
@@ -83,9 +84,9 @@ namespace UniGetUI.PackageEngine.Classes.Manager.BaseProviders
             return URIs;
         }
 
-        protected abstract Task GetPackageDetails_Unsafe(PackageDetails details);
-        protected abstract Task<string[]> GetPackageVersions_Unsafe(Package package);
-        protected abstract Task<CacheableIcon?> GetPackageIcon_Unsafe(Package package);
-        protected abstract Task<Uri[]> GetPackageScreenshots_Unsafe(Package package);
+        protected abstract Task GetPackageDetails_Unsafe(IPackageDetails details);
+        protected abstract Task<string[]> GetPackageVersions_Unsafe(IPackage package);
+        protected abstract Task<CacheableIcon?> GetPackageIcon_Unsafe(IPackage package);
+        protected abstract Task<Uri[]> GetPackageScreenshots_Unsafe(IPackage package);
     }
 }

@@ -14,6 +14,7 @@ using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Widgets;
 using UniGetUI.PackageEngine;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation.Collections;
@@ -396,7 +397,7 @@ namespace UniGetUI.Interface
                 LoadingDialogCount = 0;
         }
 
-        public void SharePackage(Package? package)
+        public void SharePackage(IPackage? package)
         {
             if (package == null)
                 return;

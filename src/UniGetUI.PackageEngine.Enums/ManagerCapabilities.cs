@@ -3,6 +3,15 @@ using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
 
 namespace UniGetUI.PackageEngine.ManagerClasses.Manager
 {
+    public struct SourceCapabilities
+    {
+        public bool KnowsUpdateDate { get; set; } = false;
+        public bool KnowsPackageCount { get; set; } = false;
+        public bool MustBeInstalledAsAdmin { get; set; } = false;
+        public SourceCapabilities()
+        { }
+    }
+
     public struct ManagerCapabilities
     {
         public bool IsDummy = false;
@@ -19,15 +28,15 @@ namespace UniGetUI.PackageEngine.ManagerClasses.Manager
         public bool SupportsCustomSources = false;
         public bool SupportsCustomPackageIcons = false;
         public bool SupportsCustomPackageScreenshots = false;
-        public ManagerSource.Capabilities Sources { get; set; }
+        public SourceCapabilities Sources { get; set; }
         public ManagerCapabilities()
         {
-            Sources = new ManagerSource.Capabilities();
+            Sources = new SourceCapabilities();
         }
 
         public ManagerCapabilities(bool IsDummy)
         {
-            Sources = new ManagerSource.Capabilities();
+            Sources = new SourceCapabilities();
             this.IsDummy = IsDummy;
         }
     }

@@ -9,8 +9,9 @@ using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Pages;
 using UniGetUI.Interface.Widgets;
-using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.Operations;
 using UniGetUI.PackageEngine.PackageClasses;
@@ -66,17 +67,17 @@ namespace UniGetUI.Interface
         protected DateTime LastPackageLoadTime { get; private set; }
         protected readonly OperationType PAGE_ROLE;
 
-        protected Package? SelectedItem
+        protected IPackage? SelectedItem
         {
             get => (PackageList.SelectedItem as PackageWrapper)?.Package;
         }
 
         protected AbstractPackageLoader Loader;
         public ObservablePackageCollection FilteredPackages = new();
-        protected List<PackageManager> UsedManagers = new();
-        protected Dictionary<PackageManager, List<ManagerSource>> UsedSourcesForManager = new();
-        protected Dictionary<PackageManager, TreeViewNode> RootNodeForManager = new();
-        protected Dictionary<ManagerSource, TreeViewNode> NodesForSources = new();
+        protected List<IPackageManager> UsedManagers = new();
+        protected Dictionary<IPackageManager, List<IManagerSource>> UsedSourcesForManager = new();
+        protected Dictionary<IPackageManager, TreeViewNode> RootNodeForManager = new();
+        protected Dictionary<IManagerSource, TreeViewNode> NodesForSources = new();
         private readonly TreeViewNode LocalPackagesNode;
         public InfoBadge? ExternalCountBadge;
 
@@ -86,7 +87,7 @@ namespace UniGetUI.Interface
 
         protected abstract void WhenPackagesLoaded(ReloadReason reason);
         protected abstract void WhenPackageCountUpdated();
-        protected abstract void WhenShowingContextMenu(Package package);
+        protected abstract void WhenShowingContextMenu(IPackage package);
         public abstract void GenerateToolBar();
         public abstract BetterMenu GenerateContextMenu();
 
@@ -301,7 +302,7 @@ namespace UniGetUI.Interface
             }
             else
             {
-                foreach (Package package in Loader.Packages)
+                foreach (IPackage package in Loader.Packages)
                     AddPackageToSourcesList(package);
             }
             FilterPackages();
@@ -348,9 +349,9 @@ namespace UniGetUI.Interface
             else
                 FilteredPackages.ClearSelection();
         }
-        protected void AddPackageToSourcesList(Package package)
+        protected void AddPackageToSourcesList(IPackage package)
         {
-            ManagerSource source = package.Source;
+            IManagerSource source = package.Source;
             if (!UsedManagers.Contains(source.Manager))
             {
                 UsedManagers.Add(source.Manager);
@@ -368,7 +369,7 @@ namespace UniGetUI.Interface
 
 
                 RootNodeForManager.Add(source.Manager, Node);
-                UsedSourcesForManager.Add(source.Manager, new List<ManagerSource>());
+                UsedSourcesForManager.Add(source.Manager, new List<IManagerSource>());
                 SourcesPlaceholderText.Visibility = Visibility.Collapsed;
                 SourcesTreeViewGrid.Visibility = Visibility.Visible;
             }
@@ -441,8 +442,8 @@ namespace UniGetUI.Interface
         {
             FilteredPackages.Clear();
 
-            List<ManagerSource> VisibleSources = new();
-            List<PackageManager> VisibleManagers = new();
+            List<IManagerSource> VisibleSources = new();
+            List<IPackageManager> VisibleManagers = new();
 
             if (SourcesTreeView.SelectedNodes.Count > 0)
             {
@@ -455,7 +456,7 @@ namespace UniGetUI.Interface
                 }
             }
 
-            IEnumerable<Package> MatchingList;
+            IEnumerable<IPackage> MatchingList;
 
             Func<string, string> CaseFunc;
             if (UpperLowerCaseCheckbox.IsChecked == true)
@@ -502,7 +503,7 @@ namespace UniGetUI.Interface
                 MatchingList = Loader.Packages;
 
             FilteredPackages.BlockSorting = true;
-            foreach (Package match in MatchingList)
+            foreach (IPackage match in MatchingList)
             {
                 if (VisibleManagers.Contains(match.Manager) || VisibleSources.Contains(match.Source))
                 {
@@ -589,7 +590,7 @@ namespace UniGetUI.Interface
             FilterPackages();
         }
         
-        protected async void ShowDetailsForPackage(Package? package)
+        protected async void ShowDetailsForPackage(IPackage? package)
         {
             if (package == null) return;
 
@@ -597,14 +598,14 @@ namespace UniGetUI.Interface
             await MainApp.Instance.MainWindow.NavigationPage.ShowPackageDetails(package, PAGE_ROLE);
         }
         
-        protected void SharePackage(Package? package)
+        protected void SharePackage(IPackage? package)
         {
             if (package == null) return;
 
             MainApp.Instance.MainWindow.SharePackage(package);
         }
         
-        protected async void ShowInstallationOptionsForPackage(Package? package)
+        protected async void ShowInstallationOptionsForPackage(IPackage? package)
         {
             if(package == null)return;
 
@@ -624,7 +625,7 @@ namespace UniGetUI.Interface
             }
         }
 
-        protected void PerformMainPackageAction(Package? package)
+        protected void PerformMainPackageAction(IPackage? package)
         {
             if(package == null) return;
 
@@ -643,7 +644,7 @@ namespace UniGetUI.Interface
         {
             PackageItemContainer? container = (sender as PackageItemContainer);
             if (container is null) return;
-            if (container is null) return;
+            if (container.Package is null) return;
             PackageList.Select(container.Wrapper.Index);
             WhenShowingContextMenu(container.Package);
         }
@@ -658,7 +659,7 @@ namespace UniGetUI.Interface
 
         private void PackageItemContainer_KeyUp(object sender, KeyRoutedEventArgs e)
         {
-            Package? package = (sender as PackageItemContainer)?.Package;
+            IPackage? package = (sender as PackageItemContainer)?.Package;
             
             bool IS_CONTROL_PRESSED = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
             bool IS_SHIFT_PRESSED = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);

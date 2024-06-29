@@ -1,4 +1,5 @@
 ﻿using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
+using UniGetUI.PackageEngine.Interfaces;
 
 namespace UniGetUI.PackageEngine.ManagerClasses.Manager
 {
@@ -14,8 +15,8 @@ namespace UniGetUI.PackageEngine.ManagerClasses.Manager
         public string InstallVerb { get; set; } = "Unset";
         public string UpdateVerb { get; set; } = "Unset";
         public string UninstallVerb { get; set; } = "Unset";
-        public ManagerSource[] KnownSources { get; set; } = [];
-        public ManagerSource DefaultSource { get; set; }
+        public IManagerSource[] KnownSources { get; set; } = [];
+        public IManagerSource DefaultSource { get; set; }
 #pragma warning disable CS8618
         public ManagerProperties() { }
         public ManagerProperties(bool IsDummy) { this.IsDummy = IsDummy; }

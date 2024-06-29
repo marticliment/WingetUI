@@ -4,8 +4,10 @@ using System.Text.RegularExpressions;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.PackageClasses;
 
@@ -31,7 +33,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 SupportedCustomArchitectures = new Architecture[] { Architecture.X86, Architecture.X64, Architecture.Arm64 },
                 SupportsCustomScopes = true,
                 SupportsCustomSources = true,
-                Sources = new ManagerSource.Capabilities()
+                Sources = new SourceCapabilities()
                 {
                     KnowsPackageCount = true,
                     KnowsUpdateDate = true
@@ -49,24 +51,24 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 InstallVerb = "install",
                 UpdateVerb = "update",
                 UninstallVerb = "uninstall",
-                KnownSources = [new(this, "main", new Uri("https://github.com/ScoopInstaller/Main")),
-                                new(this, "extras", new Uri("https://github.com/ScoopInstaller/Extras")),
-                                new(this, "versions", new Uri("https://github.com/ScoopInstaller/Versions")),
-                                new(this, "nirsoft", new Uri("https://github.com/kodybrown/scoop-nirsoft")),
-                                new(this, "sysinternals", new Uri("https://github.com/niheaven/scoop-sysinternals")),
-                                new(this, "php", new Uri("https://github.com/ScoopInstaller/PHP")),
-                                new(this, "nerd-fonts", new Uri("https://github.com/matthewjberger/scoop-nerd-fonts")),
-                                new(this, "nonportable", new Uri("https://github.com/ScoopInstaller/Nonportable")),
-                                new(this, "java", new Uri("https://github.com/ScoopInstaller/Java")),
-                                new(this, "games", new Uri("https://github.com/Calinou/scoop-games"))],
-                DefaultSource = new(this, "main", new Uri("https://github.com/ScoopInstaller/Main")),
+                KnownSources = [new ManagerSource(this, "main", new Uri("https://github.com/ScoopInstaller/Main")),
+                                new ManagerSource(this, "extras", new Uri("https://github.com/ScoopInstaller/Extras")),
+                                new ManagerSource(this, "versions", new Uri("https://github.com/ScoopInstaller/Versions")),
+                                new ManagerSource(this, "nirsoft", new Uri("https://github.com/kodybrown/scoop-nirsoft")),
+                                new ManagerSource(this, "sysinternals", new Uri("https://github.com/niheaven/scoop-sysinternals")),
+                                new ManagerSource(this, "php", new Uri("https://github.com/ScoopInstaller/PHP")),
+                                new ManagerSource(this, "nerd-fonts", new Uri("https://github.com/matthewjberger/scoop-nerd-fonts")),
+                                new ManagerSource(this, "nonportable", new Uri("https://github.com/ScoopInstaller/Nonportable")),
+                                new ManagerSource(this, "java", new Uri("https://github.com/ScoopInstaller/Java")),
+                                new ManagerSource(this, "games", new Uri("https://github.com/Calinou/scoop-games"))],
+                DefaultSource = new ManagerSource(this, "main", new Uri("https://github.com/ScoopInstaller/Main")),
             };
 
             SourceProvider = new ScoopSourceProvider(this);
             PackageDetailsProvider = new ScoopPackageDetailsProvider(this);
         }
 
-        protected override async Task<Package[]> FindPackages_UnSafe(string query)
+        protected override async Task<IPackage[]> FindPackages_UnSafe(string query)
         {
             List<Package> Packages = new();
 
@@ -113,7 +115,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
             p.Start();
 
             string? line;
-            ManagerSource source = Properties.DefaultSource;
+            IManagerSource source = Properties.DefaultSource;
             while ((line = await p.StandardOutput.ReadLineAsync()) != null)
             {
                 logger.AddToStdOut(line);
@@ -142,7 +144,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetAvailableUpdates_UnSafe()
+        protected override async Task<IPackage[]> GetAvailableUpdates_UnSafe()
         {
             Dictionary<string, Package> InstalledPackages = new();
             foreach (Package InstalledPackage in await GetInstalledPackages())
@@ -207,7 +209,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetInstalledPackages_UnSafe()
+        protected override async Task<IPackage[]> GetInstalledPackages_UnSafe()
         {
             List<Package> Packages = new();
 
@@ -262,7 +264,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
         }
 
         
-        public override OperationVeredict GetUninstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUninstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             string output_string = string.Join("\n", Output);
             if ((output_string.Contains("Try again with the --global (or -g) flag instead") && package.Scope == PackageScope.Local))
@@ -279,7 +281,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 return OperationVeredict.Succeeded;
             return OperationVeredict.Failed;
         }
-        public override OperationVeredict GetInstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetInstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             string output_string = string.Join("\n", Output);
             if ((output_string.Contains("Try again with the --global (or -g) flag instead") && package.Scope == PackageScope.Local))
@@ -296,12 +298,12 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 return OperationVeredict.Failed;
             return OperationVeredict.Succeeded;
         }
-        public override OperationVeredict GetUpdateOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUpdateOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return GetInstallOperationVeredict(package, options, ReturnCode, Output);
         }
 
-        public override string[] GetUninstallParameters(Package package, InstallationOptions options)
+        public override string[] GetUninstallParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = new();
 
@@ -319,13 +321,13 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
 
             return parameters.ToArray();
         }
-        public override string[] GetInstallParameters(Package package, InstallationOptions options)
+        public override string[] GetInstallParameters(IPackage package, IInstallationOptions options)
         {
             string[] parameters = GetUpdateParameters(package, options);
             parameters[0] = Properties.InstallVerb;
             return parameters;
         }
-        public override string[] GetUpdateParameters(Package package, InstallationOptions options)
+        public override string[] GetUpdateParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = GetUninstallParameters(package, options).ToList();
             parameters[0] = Properties.UpdateVerb;

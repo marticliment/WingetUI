@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using UniGetUI.Core.IconEngine;
 using UniGetUI.Core.Logging;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 using UniGetUIManagers = UniGetUI.PackageEngine.ManagerClasses.Manager;
 
@@ -21,17 +22,17 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
 
         public WinGetPackageDetailsProvider(WinGet manager) : base(manager) { }
         
-        protected override async Task<string[]> GetPackageVersions_Unsafe(Package package)
+        protected override async Task<string[]> GetPackageVersions_Unsafe(IPackage package)
         {
             return await WinGetHelper.Instance.GetPackageVersions_Unsafe((WinGet)Manager, package);
         }
 
-        protected override async Task GetPackageDetails_Unsafe(PackageDetails details)
+        protected override async Task GetPackageDetails_Unsafe(IPackageDetails details)
         {
             await WinGetHelper.Instance.GetPackageDetails_UnSafe((WinGet)Manager, details);
         }
 
-        protected override async Task<CacheableIcon?> GetPackageIcon_Unsafe(Package package)
+        protected override async Task<CacheableIcon?> GetPackageIcon_Unsafe(IPackage package)
         {
             
             if(package.Source.Name == "msstore")
@@ -42,7 +43,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             return await GetWinGetPackageIcon(package);
         }
 
-        protected override async Task<Uri[]> GetPackageScreenshots_Unsafe(Package package)
+        protected override async Task<Uri[]> GetPackageScreenshots_Unsafe(IPackage package)
         {
             if (package.Source.Name != "msstore")
                 return [];
@@ -81,7 +82,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
         }
 
 
-        private async Task<string?> GetMicrosoftStorePackageManifest(Package package)
+        private async Task<string?> GetMicrosoftStorePackageManifest(IPackage package)
         {
             if(__msstore_package_manifests.ContainsKey(package.Id))
                 return __msstore_package_manifests[package.Id];
@@ -117,7 +118,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
             return result;
         }
 
-        private async Task<CacheableIcon?> GetMicrosoftStorePackageIcon(Package package)
+        private async Task<CacheableIcon?> GetMicrosoftStorePackageIcon(IPackage package)
         {
             string? ResponseContent = await GetMicrosoftStorePackageManifest(package);
             if (ResponseContent == null)
@@ -166,7 +167,7 @@ namespace UniGetUI.PackageEngine.Managers.WingetManager
         }
 
 
-        private async Task<CacheableIcon?> GetWinGetPackageIcon(Package package)
+        private async Task<CacheableIcon?> GetWinGetPackageIcon(IPackage package)
         { // TODO: Need to work on retrieving WinGet icons
 
             if (WinGetHelper.Instance is not NativeWinGetHelper)

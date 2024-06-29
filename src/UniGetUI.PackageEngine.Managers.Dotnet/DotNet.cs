@@ -2,8 +2,10 @@
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using UniGetUI.Core.Tools;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.Managers.PowerShellManager;
 using UniGetUI.PackageEngine.PackageClasses;
@@ -46,7 +48,7 @@ namespace UniGetUI.PackageEngine.Managers.DotNetManager
             };
         }
 
-        protected override async Task<Package[]> GetAvailableUpdates_UnSafe()
+        protected override async Task<IPackage[]> GetAvailableUpdates_UnSafe()
         {
             Tuple<bool, string> which_res = await CoreTools.Which("dotnet-tools-outdated.exe");
             string path = which_res.Item2;
@@ -120,7 +122,7 @@ namespace UniGetUI.PackageEngine.Managers.DotNetManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetInstalledPackages_UnSafe()
+        protected override async Task<IPackage[]> GetInstalledPackages_UnSafe()
         {
             List<Package> Packages = new();
             foreach (PackageScope scope in new PackageScope[] { PackageScope.Local, PackageScope.Global})
@@ -171,27 +173,27 @@ namespace UniGetUI.PackageEngine.Managers.DotNetManager
         }
 
 
-        public override OperationVeredict GetInstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetInstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
 
-        public override OperationVeredict GetUpdateOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUpdateOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
 
-        public override OperationVeredict GetUninstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUninstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
-        public override string[] GetInstallParameters(Package package, InstallationOptions options)
+        public override string[] GetInstallParameters(IPackage package, IInstallationOptions options)
         {
             string[] parameters = GetUpdateParameters(package, options);
             parameters[0] = Properties.InstallVerb;
             return parameters;
         }
-        public override string[] GetUpdateParameters(Package package, InstallationOptions options)
+        public override string[] GetUpdateParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = GetUninstallParameters(package, options).ToList();
             parameters[0] = Properties.UpdateVerb;
@@ -208,7 +210,7 @@ namespace UniGetUI.PackageEngine.Managers.DotNetManager
             return parameters.ToArray();
         }
 
-        public override string[] GetUninstallParameters(Package package, InstallationOptions options)
+        public override string[] GetUninstallParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = new() { Properties.UninstallVerb, package.Id };
 

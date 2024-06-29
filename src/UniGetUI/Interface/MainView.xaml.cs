@@ -10,8 +10,10 @@ using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Dialogs;
 using UniGetUI.Interface.Pages;
 using UniGetUI.Interface.SoftwarePages;
+using UniGetUI.Interface.SoftwarePages.UniGetUI.Interface.SoftwarePages;
 using UniGetUI.Interface.Widgets;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 using Windows.UI.Core;
 
@@ -27,7 +29,7 @@ namespace UniGetUI.Interface
         public SoftwareUpdatesPage UpdatesPage;
         public InstalledPackagesPage InstalledPage;
         public HelpDialog? HelpPage;
-        public PackageBundlePage BundlesPage;
+        public NewPackageBundlesPage BundlesPage;
         public Page? OldPage;
         public Page? CurrentPage;
         public InfoBadge UpdatesBadge;
@@ -45,7 +47,7 @@ namespace UniGetUI.Interface
             UpdatesPage = new SoftwareUpdatesPage();
             UpdatesPage.ExternalCountBadge = UpdatesBadge;
             InstalledPage = new InstalledPackagesPage();
-            BundlesPage = new PackageBundlePage();
+            BundlesPage = new NewPackageBundlesPage();
             SettingsPage = new SettingsInterface();
 
             int i = 0;
@@ -335,7 +337,7 @@ namespace UniGetUI.Interface
             await MainApp.Instance.MainWindow.ShowDialogAsync(AdminDialog);
         }
 
-        public async Task<bool> ShowInstallationSettingsForPackageAndContinue(Package package, OperationType Operation)
+        public async Task<bool> ShowInstallationSettingsForPackageAndContinue(IPackage package, OperationType Operation)
         {
             InstallOptionsPage OptionsPage = new(package, Operation);
 
@@ -368,7 +370,7 @@ namespace UniGetUI.Interface
 
         }
 
-        public async Task<InstallationOptions> UpdateInstallationSettings(Package package, InstallationOptions options)
+        public async Task<IInstallationOptions> UpdateInstallationSettings(IPackage package, IInstallationOptions options)
         {
             InstallOptionsPage OptionsPage = new(package, options);
 
@@ -413,9 +415,6 @@ namespace UniGetUI.Interface
 
             OldPage = CurrentPage;
             CurrentPage = TargetPage;
-
-            (CurrentPage as AbstractPackagesPage)?.FocusPackageList();
-            if (CurrentPage == BundlesPage) BundlesPage.PackageList.Focus(FocusState.Programmatic);
         }
 
         private async void ReleaseNotesMenu_Click(object sender, RoutedEventArgs e)
@@ -443,7 +442,7 @@ namespace UniGetUI.Interface
             NotesDialog = null;
         }
 
-        public async Task ShowPackageDetails(Package package, OperationType ActionOperation)
+        public async Task ShowPackageDetails(IPackage package, OperationType ActionOperation)
         {
             PackageDetailsPage? DetailsPage = new(package, ActionOperation);
 
@@ -471,7 +470,7 @@ namespace UniGetUI.Interface
 
         }
 
-        public async Task<bool> ConfirmUninstallation(Package package)
+        public async Task<bool> ConfirmUninstallation(IPackage package)
         {
             ContentDialog dialog = new();
 
@@ -486,7 +485,7 @@ namespace UniGetUI.Interface
             return await MainApp.Instance.MainWindow.ShowDialogAsync(dialog) == ContentDialogResult.Secondary;
         }
 
-        public async Task<bool> ConfirmUninstallation(IEnumerable<Package> packages)
+        public async Task<bool> ConfirmUninstallation(IEnumerable<IPackage> packages)
         {
             if (packages.Count() == 0) return false;
             if (packages.Count() == 1)

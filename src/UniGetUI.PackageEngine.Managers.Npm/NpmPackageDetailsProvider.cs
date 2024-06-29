@@ -3,6 +3,7 @@ using UniGetUI.Core.IconEngine;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.Tools;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Classes;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.PackageClasses;
@@ -13,7 +14,7 @@ namespace UniGetUI.PackageEngine.Managers.NpmManager
     {
         public NpmPackageDetailsProvider(Npm manager) : base(manager) { }
 
-        protected override async Task GetPackageDetails_Unsafe(PackageDetails details)
+        protected override async Task GetPackageDetails_Unsafe(IPackageDetails details)
         {
             try
             {
@@ -102,17 +103,17 @@ namespace UniGetUI.PackageEngine.Managers.NpmManager
             return;
         }
 
-        protected override Task<CacheableIcon?> GetPackageIcon_Unsafe(Package package)
+        protected override Task<CacheableIcon?> GetPackageIcon_Unsafe(IPackage package)
         {
             throw new NotImplementedException();
         }
 
-        protected override Task<Uri[]> GetPackageScreenshots_Unsafe(Package package)
+        protected override Task<Uri[]> GetPackageScreenshots_Unsafe(IPackage package)
         {
             throw new NotImplementedException();
         }
 
-        protected override async Task<string[]> GetPackageVersions_Unsafe(Package package)
+        protected override async Task<string[]> GetPackageVersions_Unsafe(IPackage package)
         {
             Process p = new();
             p.StartInfo = new ProcessStartInfo()

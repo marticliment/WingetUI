@@ -3,7 +3,8 @@ using Microsoft.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.Tools;
-using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
+using UniGetUI.PackageEngine.Classes.Manager;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.Operations;
 
@@ -15,9 +16,9 @@ namespace UniGetUI.Interface.Widgets
     public class SourceItem
     {
         public SourceManager Parent;
-        public ManagerSource Source;
+        public IManagerSource Source;
 
-        public SourceItem(SourceManager Parent, ManagerSource Source)
+        public SourceItem(SourceManager Parent, IManagerSource Source)
         {
             this.Parent = Parent;
             this.Source = Source;
@@ -31,11 +32,11 @@ namespace UniGetUI.Interface.Widgets
     }
     public sealed partial class SourceManager : UserControl
     {
-        private PackageManager Manager { get; set; }
+        private IPackageManager Manager { get; set; }
         private ObservableCollection<SourceItem> Sources = new();
 
         private ListView _datagrid { get; set; }
-        public SourceManager(PackageManager Manager)
+        public SourceManager(IPackageManager Manager)
         {
             this.Manager = Manager;
             InitializeComponent();
@@ -54,8 +55,8 @@ namespace UniGetUI.Interface.Widgets
                     d.Title = CoreTools.Translate("Add source");
 
                     ComboBox SourcesCombo = new();
-                    Dictionary<string, ManagerSource> NameSourceRef = new();
-                    foreach (ManagerSource source in Manager.Properties.KnownSources)
+                    Dictionary<string, IManagerSource> NameSourceRef = new();
+                    foreach (IManagerSource source in Manager.Properties.KnownSources)
                     {
                         SourcesCombo.Items.Add(source.Name);
                         NameSourceRef.Add(source.Name, source);
@@ -152,9 +153,9 @@ namespace UniGetUI.Interface.Widgets
 
             LoadingBar.Visibility = Visibility.Visible;
             Sources.Clear();
-            foreach (ManagerSource Source in await Manager.GetSources())
+            foreach (IManagerSource source in await Manager.GetSources())
             {
-                Sources.Add(new SourceItem(this, Source));
+                Sources.Add(new SourceItem(this, source));
             }
             if (Sources.Count > 0)
                 _datagrid.SelectedIndex = 0;

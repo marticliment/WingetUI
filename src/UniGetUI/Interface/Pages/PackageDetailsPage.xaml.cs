@@ -9,6 +9,7 @@ using UniGetUI.Core.Logging;
 using UniGetUI.Core.Tools;
 using UniGetUI.PackageEngine;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.Operations;
 using UniGetUI.PackageEngine.PackageClasses;
 using Windows.Storage;
@@ -26,7 +27,7 @@ namespace UniGetUI.Interface.Dialogs
     /// </summary>
     public sealed partial class PackageDetailsPage : Page
     {
-        public Package Package;
+        public IPackage Package;
         private readonly InstallOptionsPage InstallOptionsPage;
         public event EventHandler? Close;
         readonly OperationType OperationRole;
@@ -43,7 +44,7 @@ namespace UniGetUI.Interface.Dialogs
 
 
         private LayoutMode __layout_mode = LayoutMode.Unloaded;
-        public PackageDetailsPage(Package package, OperationType operationRole)
+        public PackageDetailsPage(IPackage package, OperationType operationRole)
         {
             OperationRole = operationRole;
             Package = package;
@@ -132,7 +133,7 @@ namespace UniGetUI.Interface.Dialogs
 
             string NotFound = CoreTools.Translate("Not available");
 
-            PackageDetails details = Package.Details;
+            IPackageDetails details = Package.Details;
             if (!details.IsPopulated) await details.Load();
 
             string command = "";

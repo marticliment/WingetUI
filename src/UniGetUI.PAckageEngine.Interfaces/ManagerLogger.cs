@@ -1,15 +1,16 @@
 ﻿using System.Diagnostics;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 
 namespace UniGetUI.PackageEngine.ManagerClasses.Classes
 {
     public class ManagerLogger
     {
-        readonly PackageManager Manager;
+        readonly IPackageManager Manager;
         public List<TaskLogger> Operations = new();
 
-        public ManagerLogger(PackageManager manager)
+        public ManagerLogger(IPackageManager manager)
         {
             Manager = manager;
         }
@@ -82,7 +83,7 @@ namespace UniGetUI.PackageEngine.ManagerClasses.Classes
 
     public class ProcessTaskLogger : TaskLogger
     {
-        readonly PackageManager Manager;
+        readonly IPackageManager Manager;
         readonly LoggableTaskType Type;
 
         readonly string Executable;
@@ -91,7 +92,7 @@ namespace UniGetUI.PackageEngine.ManagerClasses.Classes
         readonly List<string> StdOut = new();
         readonly List<string> StdErr = new();
 
-        public ProcessTaskLogger(PackageManager manager, LoggableTaskType type, string executable, string arguments) : base()
+        public ProcessTaskLogger(IPackageManager manager, LoggableTaskType type, string executable, string arguments) : base()
         {
             Type = type;
             Manager = manager;
@@ -196,13 +197,13 @@ namespace UniGetUI.PackageEngine.ManagerClasses.Classes
 
     public class NativeTaskLogger : TaskLogger
     {
-        readonly PackageManager Manager;
+        readonly IPackageManager Manager;
         readonly LoggableTaskType Type;
 
         readonly List<string> Info = new();
         readonly List<string> Errors = new();
 
-        public NativeTaskLogger(PackageManager manager, LoggableTaskType type) : base()
+        public NativeTaskLogger(IPackageManager manager, LoggableTaskType type) : base()
         {
             Type = type;
             Manager = manager;

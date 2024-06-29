@@ -5,6 +5,7 @@ using UniGetUI.Core.Logging;
 using UniGetUI.Core.Tools;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.Managers.Generic.NuGet.Internal;
 using UniGetUI.PackageEngine.PackageClasses;
@@ -15,7 +16,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
     {
         public BaseNuGetDetailsProvider(BaseNuGet manager) : base(manager) { }
 
-        protected override async Task GetPackageDetails_Unsafe(PackageDetails details)
+        protected override async Task GetPackageDetails_Unsafe(IPackageDetails details)
         {
             ManagerClasses.Classes.NativeTaskLogger logger = Manager.TaskLogger.CreateNew(LoggableTaskType.LoadPackageDetails);
             try
@@ -95,7 +96,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
             }
         }
 
-        protected override async Task<CacheableIcon?> GetPackageIcon_Unsafe(Package package)
+        protected override async Task<CacheableIcon?> GetPackageIcon_Unsafe(IPackage package)
         {
             string? PackageManifestContent = await PackageManifestLoader.GetPackageManifestContent(package);
             if (PackageManifestContent == null)
@@ -116,12 +117,12 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
             return new CacheableIcon(new Uri(possibleIconUrl.Groups[1].Value), package.Version);
         }
 
-        protected override Task<Uri[]> GetPackageScreenshots_Unsafe(Package package)
+        protected override Task<Uri[]> GetPackageScreenshots_Unsafe(IPackage package)
         {
             throw new NotImplementedException();
         }
 
-        protected override async Task<string[]> GetPackageVersions_Unsafe(Package package)
+        protected override async Task<string[]> GetPackageVersions_Unsafe(IPackage package)
         {
             Uri SearchUrl = new($"{package.Source.Url}/FindPackagesById()?id='{package.Id}'");
             Logger.Debug($"Begin package version search with url={SearchUrl} on manager {Manager.Name}");

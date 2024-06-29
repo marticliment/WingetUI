@@ -7,6 +7,7 @@ using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Enums;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 
 namespace UniGetUI.PackageEngine.Operations
@@ -24,14 +25,16 @@ namespace UniGetUI.PackageEngine.Operations
     public abstract class PackageOperation : AbstractOperation
     {
 
-        public Package Package;
-        protected InstallationOptions Options;
-        public PackageOperation(Package package, InstallationOptions options, bool IgnoreParallelInstalls = false) : base(IgnoreParallelInstalls)
+        public IPackage Package;
+        protected IInstallationOptions Options;
+        public PackageOperation(IPackage package, IInstallationOptions options, bool IgnoreParallelInstalls = false) : base(IgnoreParallelInstalls)
         {
             Package = package;
             Options = options;
             MainProcedure();
         }
+        public PackageOperation(IPackage package, bool IgnoreParallelInstalls = false) : this(package, InstallationOptions.FromPackage(package), IgnoreParallelInstalls) { }
+
 
         protected override async Task WaitForAvailability()
         {
@@ -66,14 +69,13 @@ namespace UniGetUI.PackageEngine.Operations
 
         }
 
-        public PackageOperation(Package package, bool IgnoreParallelInstalls = false) : this(package, InstallationOptions.FromPackage(package), IgnoreParallelInstalls) { }
     }
 
     public class InstallPackageOperation : PackageOperation
     {
 
-        public InstallPackageOperation(Package package, InstallationOptions options, bool IgnoreParallelInstalls = false) : base(package, options, IgnoreParallelInstalls) { }
-        public InstallPackageOperation(Package package, bool IgnoreParallelInstalls = false) : base(package, IgnoreParallelInstalls) { }
+        public InstallPackageOperation(IPackage package, IInstallationOptions options, bool IgnoreParallelInstalls = false) : base(package, options, IgnoreParallelInstalls) { }
+        public InstallPackageOperation(IPackage package, bool IgnoreParallelInstalls = false) : base(package, IgnoreParallelInstalls) { }
         protected override async Task<Process> BuildProcessInstance(ProcessStartInfo startInfo)
         {
             if (Options.RunAsAdministrator || Settings.Get("AlwaysElevate" + Package.Manager.Name))
@@ -184,8 +186,8 @@ namespace UniGetUI.PackageEngine.Operations
     public class UpdatePackageOperation : PackageOperation
     {
 
-        public UpdatePackageOperation(Package package, InstallationOptions options, bool IgnoreParallelInstalls = false) : base(package, options, IgnoreParallelInstalls) { }
-        public UpdatePackageOperation(Package package, bool IgnoreParallelInstalls = false) : base(package, IgnoreParallelInstalls) { }
+        public UpdatePackageOperation(IPackage package, IInstallationOptions options, bool IgnoreParallelInstalls = false) : base(package, options, IgnoreParallelInstalls) { }
+        public UpdatePackageOperation(IPackage package, bool IgnoreParallelInstalls = false) : base(package, IgnoreParallelInstalls) { }
         protected override async Task<Process> BuildProcessInstance(ProcessStartInfo startInfo)
         {
             if (Options.RunAsAdministrator || Settings.Get("AlwaysElevate" + Package.Manager.Name))
@@ -302,8 +304,8 @@ namespace UniGetUI.PackageEngine.Operations
     public class UninstallPackageOperation : PackageOperation
     {
 
-        public UninstallPackageOperation(Package package, InstallationOptions options, bool IgnoreParallelInstalls = false) : base(package, options, IgnoreParallelInstalls) { }
-        public UninstallPackageOperation(Package package, bool IgnoreParallelInstalls = false) : base(package, IgnoreParallelInstalls) { }
+        public UninstallPackageOperation(IPackage package, IInstallationOptions options, bool IgnoreParallelInstalls = false) : base(package, options, IgnoreParallelInstalls) { }
+        public UninstallPackageOperation(IPackage package, bool IgnoreParallelInstalls = false) : base(package, IgnoreParallelInstalls) { }
         protected override async Task<Process> BuildProcessInstance(ProcessStartInfo startInfo)
         {
             if (Options.RunAsAdministrator || Settings.Get("AlwaysElevate" + Package.Manager.Name))

@@ -2,6 +2,7 @@
 using UniGetUI.Core.Classes;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 
 namespace UniGetUI.PackageEngine.PackageClasses
 {
@@ -27,9 +28,9 @@ namespace UniGetUI.PackageEngine.PackageClasses
         public int Index { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public Package Package { get; private set; }
+        public IPackage Package { get; private set; }
         public PackageWrapper Self { get; private set; }
-        public PackageWrapper(Package package)
+        public PackageWrapper(IPackage package)
         {
             Package = package;
             Self = this;
@@ -78,6 +79,7 @@ namespace UniGetUI.PackageEngine.PackageClasses
                 PackageTag.OnQueue => false,
                 PackageTag.BeingProcessed => false,
                 PackageTag.Failed => true,
+                PackageTag.Unavailable => false,
             };
 
             ListedIconId = Package.Tag switch
@@ -89,6 +91,7 @@ namespace UniGetUI.PackageEngine.PackageClasses
                 PackageTag.OnQueue => "sandclock",
                 PackageTag.BeingProcessed => "gears",
                 PackageTag.Failed => "stop",
+                PackageTag.Unavailable => "help",
             };
 
             ListedNameTooltip = Package.Tag switch
@@ -100,6 +103,7 @@ namespace UniGetUI.PackageEngine.PackageClasses
                 PackageTag.OnQueue => CoreTools.Translate("This package is on the queue"),
                 PackageTag.BeingProcessed => CoreTools.Translate("This package is being processed"),
                 PackageTag.Failed => CoreTools.Translate("An error occurred while processing this package"),
+                PackageTag.Unavailable => CoreTools.Translate("This package is not available"),
             } + " - " + Package.Name;
 
             ListedOpacity = Package.Tag switch
@@ -111,6 +115,7 @@ namespace UniGetUI.PackageEngine.PackageClasses
                 PackageTag.OnQueue => .5F,
                 PackageTag.BeingProcessed => .5F,
                 PackageTag.Failed => 1,
+                PackageTag.Unavailable => .5F,
             };
 #pragma warning restore CS8524
         }

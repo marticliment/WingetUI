@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using UniGetUI.Core.Tools;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.PackageClasses;
 
@@ -42,7 +44,7 @@ namespace UniGetUI.PackageEngine.Managers.NpmManager
             PackageDetailsProvider = new NpmPackageDetailsProvider(this);
         }
         
-        protected override async Task<Package[]> FindPackages_UnSafe(string query)
+        protected override async Task<IPackage[]> FindPackages_UnSafe(string query)
         {
             Process p = new();
             p.StartInfo = new ProcessStartInfo()
@@ -87,7 +89,7 @@ namespace UniGetUI.PackageEngine.Managers.NpmManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetAvailableUpdates_UnSafe()
+        protected override async Task<IPackage[]> GetAvailableUpdates_UnSafe()
         {
             List<Package> Packages = new();
             foreach (PackageScope scope in new PackageScope[] { PackageScope.Local, PackageScope.Global })
@@ -133,7 +135,7 @@ namespace UniGetUI.PackageEngine.Managers.NpmManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetInstalledPackages_UnSafe()
+        protected override async Task<IPackage[]> GetInstalledPackages_UnSafe()
         {
             List<Package> Packages = new();
             foreach (PackageScope scope in new PackageScope[] { PackageScope.Local, PackageScope.Global })
@@ -181,21 +183,21 @@ namespace UniGetUI.PackageEngine.Managers.NpmManager
             return Packages.ToArray();
         }
 
-        public override OperationVeredict GetInstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetInstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
 
-        public override OperationVeredict GetUpdateOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUpdateOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
 
-        public override OperationVeredict GetUninstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUninstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return ReturnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
         }
-        public override string[] GetInstallParameters(Package package, InstallationOptions options)
+        public override string[] GetInstallParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = GetUninstallParameters(package, options).ToList();
             parameters[0] = Properties.InstallVerb;
@@ -213,14 +215,14 @@ namespace UniGetUI.PackageEngine.Managers.NpmManager
 
             return parameters.ToArray();
         }
-        public override string[] GetUpdateParameters(Package package, InstallationOptions options)
+        public override string[] GetUpdateParameters(IPackage package, IInstallationOptions options)
         {
             string[] parameters = GetInstallParameters(package, options);
             parameters[0] = Properties.UpdateVerb;
             parameters[1] = package.Id + "@" + package.NewVersion;
             return parameters;
         }
-        public override string[] GetUninstallParameters(Package package, InstallationOptions options)
+        public override string[] GetUninstallParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = new() { Properties.UninstallVerb, package.Id };
 

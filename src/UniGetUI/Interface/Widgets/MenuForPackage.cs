@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using UniGetUI.Core.Tools;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 
 namespace UniGetUI.Interface.Widgets
@@ -60,8 +61,13 @@ namespace UniGetUI.Interface.Widgets
 
     public class MenuForPackage : MenuFlyout
     {
-        public event EventHandler<Package>? AboutToShow;
+        public event EventHandler<IPackage?>? AboutToShow;
         readonly DependencyProperty PackageProperty;
+        public IPackage? Package
+        {
+            get => (Package)GetValue(PackageProperty);
+            set => SetValue(PackageProperty, value);
+        }
 
         public MenuForPackage() : base()
         {
@@ -75,19 +81,14 @@ namespace UniGetUI.Interface.Widgets
             Opening += (s, e) => { AboutToShow?.Invoke(this, Package); };
         }
 
-        public Package Package
-        {
-            get => (Package)GetValue(PackageProperty);
-            set => SetValue(PackageProperty, value);
-        }
     }
     public class MenuItemForPackage : MenuFlyoutItem
     {
-        public event EventHandler<Package>? Invoked;
+        public event EventHandler<IPackage?>? Invoked;
 
         readonly DependencyProperty PackageProperty;
 
-        public Package Package
+        public IPackage? Package
         {
             get => (Package)GetValue(PackageProperty);
             set => SetValue(PackageProperty, value);

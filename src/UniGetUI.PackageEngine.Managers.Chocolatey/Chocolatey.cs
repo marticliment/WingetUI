@@ -4,8 +4,10 @@ using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
+using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Manager;
 using UniGetUI.PackageEngine.Managers.Chocolatey;
 using UniGetUI.PackageEngine.Managers.PowerShellManager;
@@ -32,7 +34,7 @@ namespace UniGetUI.PackageEngine.Managers.ChocolateyManager
                 SupportsPreRelease = true,
                 SupportsCustomSources = true,
                 SupportsCustomPackageIcons = true,
-                Sources = new ManagerSource.Capabilities()
+                Sources = new SourceCapabilities()
                 {
                     KnowsPackageCount = false,
                     KnowsUpdateDate = false,
@@ -59,7 +61,7 @@ namespace UniGetUI.PackageEngine.Managers.ChocolateyManager
             PackageDetailsProvider = new ChocolateyDetailsProvider(this);
         }
         
-        protected override async Task<Package[]> GetAvailableUpdates_UnSafe()
+        protected override async Task<IPackage[]> GetAvailableUpdates_UnSafe()
         {
             Process p = new();
             p.StartInfo = new ProcessStartInfo()
@@ -104,7 +106,7 @@ namespace UniGetUI.PackageEngine.Managers.ChocolateyManager
             return Packages.ToArray();
         }
 
-        protected override async Task<Package[]> GetInstalledPackages_UnSafe()
+        protected override async Task<IPackage[]> GetInstalledPackages_UnSafe()
         {
             Process p = new();
             p.StartInfo = new ProcessStartInfo()
@@ -148,7 +150,7 @@ namespace UniGetUI.PackageEngine.Managers.ChocolateyManager
 
             return Packages.ToArray();
         }
-        public override OperationVeredict GetInstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetInstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             string output_string = string.Join("\n", Output);
 
@@ -164,12 +166,12 @@ namespace UniGetUI.PackageEngine.Managers.ChocolateyManager
             return OperationVeredict.Failed;
         }
 
-        public override OperationVeredict GetUpdateOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUpdateOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             return GetInstallOperationVeredict(package, options, ReturnCode, Output);
         }
 
-        public override OperationVeredict GetUninstallOperationVeredict(Package package, InstallationOptions options, int ReturnCode, string[] Output)
+        public override OperationVeredict GetUninstallOperationVeredict(IPackage package, IInstallationOptions options, int ReturnCode, string[] Output)
         {
             string output_string = string.Join("\n", Output);
 
@@ -184,7 +186,7 @@ namespace UniGetUI.PackageEngine.Managers.ChocolateyManager
             }
             return OperationVeredict.Failed;
         }
-        public override string[] GetInstallParameters(Package package, InstallationOptions options)
+        public override string[] GetInstallParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = GetUninstallParameters(package, options).ToList();
             parameters[0] = Properties.InstallVerb;
@@ -204,14 +206,14 @@ namespace UniGetUI.PackageEngine.Managers.ChocolateyManager
 
             return parameters.ToArray();
         }
-        public override string[] GetUpdateParameters(Package package, InstallationOptions options)
+        public override string[] GetUpdateParameters(IPackage package, IInstallationOptions options)
         {
             string[] parameters = GetInstallParameters(package, options);
             parameters[0] = Properties.UpdateVerb;
             return parameters;
         }
 
-        public override string[] GetUninstallParameters(Package package, InstallationOptions options)
+        public override string[] GetUninstallParameters(IPackage package, IInstallationOptions options)
         {
             List<string> parameters = new() { Properties.UninstallVerb, package.Id, "-y" };
 

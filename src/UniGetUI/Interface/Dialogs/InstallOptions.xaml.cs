@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using UniGetUI.Core.Language;
 using UniGetUI.Core.Tools;
 using UniGetUI.PackageEngine.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.PackageClasses;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -16,13 +17,13 @@ namespace UniGetUI.Interface.Dialogs
     /// </summary>
     public sealed partial class InstallOptionsPage : Page
     {
-        public InstallationOptions Options;
-        public Package Package;
+        public IInstallationOptions Options;
+        public IPackage Package;
         public event EventHandler? Close;
 
-        public InstallOptionsPage(Package package, OperationType Operation) : this(package, Operation, InstallationOptions.FromPackage(package)) { }
-        public InstallOptionsPage(Package package, InstallationOptions options) : this(package, OperationType.None, options) { }
-        public InstallOptionsPage(Package package, OperationType Operation, InstallationOptions options)
+        public InstallOptionsPage(IPackage package, OperationType Operation) : this(package, Operation, InstallationOptions.FromPackage(package)) { }
+        public InstallOptionsPage(IPackage package, IInstallationOptions options) : this(package, OperationType.None, options) { }
+        public InstallOptionsPage(IPackage package, OperationType Operation, IInstallationOptions options)
         {
             Package = package;
             InitializeComponent();
@@ -113,7 +114,7 @@ namespace UniGetUI.Interface.Dialogs
             VersionProgress.Visibility = Visibility.Collapsed;
         }
 
-        public async Task<InstallationOptions> GetUpdatedOptions()
+        public async Task<IInstallationOptions> GetUpdatedOptions()
         {
             Options.RunAsAdministrator = AdminCheckBox?.IsChecked ?? false;
             Options.InteractiveInstallation = InteractiveCheckBox?.IsChecked ?? false;

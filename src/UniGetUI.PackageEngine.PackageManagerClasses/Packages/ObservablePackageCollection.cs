@@ -2,6 +2,7 @@
 using UniGetUI.Core.Classes;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Enums;
+using UniGetUI.PackageEngine.Interfaces;
 
 namespace UniGetUI.PackageEngine.PackageClasses
 {
@@ -31,7 +32,7 @@ namespace UniGetUI.PackageEngine.PackageClasses
         /// Add a package to the collection
         /// </summary>
         /// <param name="p"></param>
-        public void Add(Package p)
+        public void Add(IPackage p)
         {
             base.Add(new PackageWrapper(p));
         }
@@ -87,9 +88,9 @@ namespace UniGetUI.PackageEngine.PackageClasses
         /// Returns a list containing the packwges in this collection
         /// </summary>
         /// <returns></returns>
-        public List<Package> GetPackages()
+        public List<IPackage> GetPackages()
         {
-            List<Package> packages = new();
+            List<IPackage> packages = new();
             foreach (PackageWrapper wrapper in this)
                     packages.Add(wrapper.Package);
             return packages;
@@ -99,9 +100,9 @@ namespace UniGetUI.PackageEngine.PackageClasses
         /// Returns a list containing the checked packages on this collection
         /// </summary>
         /// <returns></returns>
-        public List<Package> GetCheckedPackages()
-        {
-            List<Package> packages = new();
+        public List<IPackage> GetCheckedPackages()
+        { 
+            List<IPackage> packages = new();
             foreach (PackageWrapper wrapper in this)
             {
                 if (wrapper.Package.IsChecked)
