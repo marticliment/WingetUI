@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We will only support and maintain the latest version of WingetUI. Any older releases will not receive support or maintenance.
+We will only support and maintain the latest version of UniGetUI. Any older releases will not receive support or maintenance.
 
 ## Reporting a Vulnerability
 

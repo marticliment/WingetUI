@@ -9,9 +9,9 @@ body:
       label: Please confirm these before moving forward.
       description: Please confirm the following before posting your issue.
       options:
-        - label: I have tried deleting a folder named `.wingetui` placed on the user directory.
+        - label: I have tried deleting a folder named `UniGetUI` under `%UserProfile%\AppData\Local\UniGetUI`.
           required: true
-        - label: I have tried reinstalling WingetUI.
+        - label: I have tried reinstalling UniGetUI.
           required: true
         - label: I have tested that this issue has not been fixed in the latest [(beta or stable) release](https://github.com/marticliment/WingetUI/releases/).
           required: true

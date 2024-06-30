@@ -14,7 +14,7 @@ This repository **respects** people, despite their race, gender, religion, heigh
 Before reading: All of the rules below are guidelines, which means that they should be followed when possible. Please do not take them literally.
 
 ## Discussions:
- - This is the place to post any questions/doubts regarding WingetUI. Issues and feature requests should be posted in the [issues section](https://github.com/marticliment/WingetUI/issues).
+ - This is the place to post any questions/doubts regarding UniGetUI. Issues and feature requests should be posted in the [issues section](https://github.com/marticliment/WingetUI/issues).
 
 ## Issues and feature requests:
 
