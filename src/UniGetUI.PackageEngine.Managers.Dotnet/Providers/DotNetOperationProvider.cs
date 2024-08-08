@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
 using UniGetUI.PackageEngine.Enums;
 using UniGetUI.PackageEngine.Interfaces;
-using UniGetUI.PackageEngine.Managers.DotNetManager;
-using UniGetUI.PackageEngine.PackageClasses;
-using Windows.ApplicationModel.Appointments;
 
 namespace UniGetUI.PackageEngine.Managers.DotNetManager;
 internal sealed class DotNetOperationProvider : BaseOperationProvider<DotNet>
@@ -35,7 +27,7 @@ internal sealed class DotNetOperationProvider : BaseOperationProvider<DotNet>
         if (options.CustomInstallLocation != "")
             parameters.AddRange(["--tool-path", "\"" + options.CustomInstallLocation + "\""]);
 
-        if (options.InstallationScope == PackageScope.Global || (options.InstallationScope is null && package.Scope == PackageScope.Global))
+        if(package.OverridenOptions.Scope == PackageScope.Global || (package.OverridenOptions.Scope is null && options.InstallationScope == PackageScope.Global))
             parameters.Add("--global");
 
         if (operation is OperationType.Install or OperationType.Update)
@@ -55,7 +47,6 @@ internal sealed class DotNetOperationProvider : BaseOperationProvider<DotNet>
 
     public override OperationVeredict GetOperationResult(
         IPackage package,
-        IInstallationOptions options,
         OperationType operation,
         IEnumerable<string> processOutput,
         int returnCode)

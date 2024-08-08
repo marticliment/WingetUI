@@ -1,6 +1,6 @@
+using System.Diagnostics;
 using CommunityToolkit.WinUI.Notifications;
 using Microsoft.UI.Xaml.Controls;
-using System.Diagnostics;
 using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
@@ -49,32 +49,33 @@ namespace UniGetUI.PackageEngine.Operations
 
         protected sealed override async Task<Process> BuildProcessInstance(ProcessStartInfo startInfo)
         {
-            if (Options.RunAsAdministrator || Settings.Get("AlwaysElevate" + Package.Manager.Name))
+            string operation_args = string.Join(" ", Package.Manager.GetOperationParameters(Package, Options, Role));
+
+            if (Package.OverridenOptions.RunAsAdministrator == true || Options.RunAsAdministrator || Settings.Get("AlwaysElevate" + Package.Manager.Name))
             {
                 if (Settings.Get("DoCacheAdminRights") || Settings.Get("DoCacheAdminRightsForBatches"))
                 {
                     await CoreTools.CacheUACForCurrentProcess();
                 }
                 startInfo.FileName = CoreData.GSudoPath;
-                startInfo.Arguments = $"\"{Package.Manager.Status.ExecutablePath}\" " + Package.Manager.Properties.ExecutableCallArgs + " " + string.Join(" ", Package.Manager.GetOperationParameters(Package, Options, Role));
+                startInfo.Arguments = $"\"{Package.Manager.Status.ExecutablePath}\" {Package.Manager.Properties.ExecutableCallArgs} {operation_args}";
             }
             else
             {
                 startInfo.FileName = Package.Manager.Status.ExecutablePath;
-                startInfo.Arguments = Package.Manager.Properties.ExecutableCallArgs + " " + string.Join(" ", Package.Manager.GetOperationParameters(Package, Options, Role));
+                startInfo.Arguments = $"{Package.Manager.Properties.ExecutableCallArgs} {operation_args}";
             }
-            Process process = new()
+
+            return new Process()
             {
                 StartInfo = startInfo
             };
-
-            return process;
         }
 
 #pragma warning disable CS1998
         protected sealed override async Task<OperationVeredict> GetProcessVeredict(int ReturnCode, string[] Output)
         {
-            return Package.Manager.GetOperationResult(Package, Options, Role, Output, ReturnCode);
+            return Package.Manager.GetOperationResult(Package, Role, Output, ReturnCode);
         }
 #pragma warning restore CS1998
 

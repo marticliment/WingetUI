@@ -1,7 +1,7 @@
+using System.Diagnostics;
 using ExternalLibraries.Clipboard;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Diagnostics;
 using UniGetUI.Core.Tools;
 using Windows.Storage;
 using Windows.Storage.Pickers;

@@ -1,9 +1,9 @@
-using ExternalLibraries.Pickers;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Xml.Serialization;
+using ExternalLibraries.Pickers;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Enums;
@@ -249,7 +249,7 @@ namespace UniGetUI.Interface.SoftwarePages
             {
                 if(package is ImportedPackage imported)
                 { 
-                    Logger.ImportantInfo($"Registering package {imported.Id} from manager {imported.SourceAsString}");
+                    Logger.ImportantInfo($"Registering package {imported.Id} from manager {imported.Source.AsString}");
                     packages_to_install.Add(await imported.RegisterAndGetPackageAsync());
                 }
                 else

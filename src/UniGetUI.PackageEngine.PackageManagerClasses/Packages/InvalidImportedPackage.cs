@@ -6,6 +6,7 @@ using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Serializable;
 using UniGetUI.PackageEngine.Enums;
 using UniGetUI.PackageEngine.Interfaces;
+using UniGetUI.PackageEngine.Structs;
 
 namespace UniGetUI.PackageEngine.PackageClasses
 {
@@ -24,6 +25,9 @@ namespace UniGetUI.PackageEngine.PackageClasses
 
         private long __hash;
         private long __extended_hash;
+
+        private static OverridenInstallationOptions __overriden_options;
+        public ref OverridenInstallationOptions OverridenOptions { get => ref __overriden_options; }
 
         public string Name { get; }
 

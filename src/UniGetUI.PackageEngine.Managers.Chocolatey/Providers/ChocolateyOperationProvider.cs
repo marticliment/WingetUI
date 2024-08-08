@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
 using UniGetUI.PackageEngine.Enums;
 using UniGetUI.PackageEngine.Interfaces;
-using UniGetUI.PackageEngine.Managers.ChocolateyManager;
-using UniGetUI.PackageEngine.PackageClasses;
 
 namespace UniGetUI.PackageEngine.Managers.ChocolateyManager;
 internal sealed class ChocolateyOperationProvider : BaseOperationProvider<Chocolatey>
@@ -56,7 +49,6 @@ internal sealed class ChocolateyOperationProvider : BaseOperationProvider<Chocol
 
     public override OperationVeredict GetOperationResult(
         IPackage package,
-        IInstallationOptions options,
         OperationType operation,
         IEnumerable<string> processOutput,
         int returnCode)
@@ -73,12 +65,12 @@ internal sealed class ChocolateyOperationProvider : BaseOperationProvider<Chocol
 
 
         string output_string = string.Join("\n", processOutput);
-        if (!options.RunAsAdministrator &&
+        if (!package.OverridenOptions.RunAsAdministrator != true &&
             (output_string.Contains("Run as administrator")
             || output_string.Contains("The requested operation requires elevation")
             || output_string.Contains("ERROR: Exception calling \"CreateDirectory\" with \"1\" argument(s): \"Access to the path")) )
         {
-            options.RunAsAdministrator = true;
+            package.OverridenOptions.RunAsAdministrator = true;
             return OperationVeredict.AutoRetry;
         }
 

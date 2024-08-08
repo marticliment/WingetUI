@@ -1,10 +1,10 @@
+using System.Diagnostics;
+using System.Globalization;
+using System.Security.Cryptography;
 using CommunityToolkit.WinUI.Helpers;
 using CommunityToolkit.WinUI.Notifications;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Diagnostics;
-using System.Globalization;
-using System.Security.Cryptography;
 using UniGetUI.Core.Data;
 using UniGetUI.Core.IconEngine;
 using UniGetUI.Core.Logging;

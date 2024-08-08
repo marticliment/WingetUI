@@ -1,21 +1,17 @@
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 using UniGetUI.Core.Classes;
-using UniGetUI.Core.Data;
 using UniGetUI.Core.IconEngine;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
-using UniGetUI.PackageEngine.Interfaces.ManagerProviders;
 using UniGetUI.PackageEngine.Classes.Manager.Classes;
 using UniGetUI.PackageEngine.Classes.Manager.ManagerHelpers;
 using UniGetUI.PackageEngine.Classes.Manager.Providers;
 using UniGetUI.PackageEngine.Classes.Packages;
 using UniGetUI.PackageEngine.Enums;
 using UniGetUI.PackageEngine.Interfaces;
+using UniGetUI.PackageEngine.Interfaces.ManagerProviders;
 using UniGetUI.PackageEngine.ManagerClasses.Classes;
 using UniGetUI.PackageEngine.PackageClasses;
-using UniGetUI.PackageEngine.Classes.Manager;
 
 namespace UniGetUI.PackageEngine.ManagerClasses.Manager
 {
@@ -437,11 +433,11 @@ namespace UniGetUI.PackageEngine.ManagerClasses.Manager
             }
         }
 
-        public OperationVeredict GetOperationResult(IPackage package, IInstallationOptions options, OperationType operation, IEnumerable<string> processOutput, int returnCode)
+        public OperationVeredict GetOperationResult(IPackage package, OperationType operation, IEnumerable<string> processOutput, int returnCode)
         {
             try
             {
-                return OperationProvider.GetOperationResult(package, options, operation, processOutput, returnCode);
+                return OperationProvider.GetOperationResult(package, operation, processOutput, returnCode);
             }
             catch (Exception ex)
             {
@@ -524,7 +520,7 @@ namespace UniGetUI.PackageEngine.ManagerClasses.Manager
             return Array.Empty<string>();
         }
 
-        public override OperationVeredict GetOperationResult(IPackage package, IInstallationOptions options, OperationType operation, IEnumerable<string> processOutput, int returnCode)
+        public override OperationVeredict GetOperationResult(IPackage package, OperationType operation, IEnumerable<string> processOutput, int returnCode)
         {
             return OperationVeredict.Failed;
         }

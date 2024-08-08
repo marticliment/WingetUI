@@ -8,6 +8,7 @@ using UniGetUI.PackageEngine.Enums;
 using UniGetUI.PackageEngine.Interfaces;
 using UniGetUI.PackageEngine.ManagerClasses.Classes;
 using UniGetUI.PackageEngine.PackageClasses;
+using UniGetUI.PackageEngine.Structs;
 using WindowsPackageManager.Interop;
 
 namespace UniGetUI.PackageEngine.Managers.WingetManager;
@@ -109,12 +110,26 @@ internal sealed class NativeWinGetHelper : IWinGetManagerHelper
                     // Create the Package item and add it to the list
                     logger.Log(
                         $"Found package: {catPkg.Name}|{catPkg.Id}|{catPkg.DefaultInstallVersion.Version} on catalog {source.Name}");
+
+                    var overriden_options = new OverridenInstallationOptions();
+
+                    var installOptions = Factory.CreateInstallOptions();
+                    if (catPkg.DefaultInstallVersion.HasApplicableInstaller(installOptions))
+                    {
+                        var options = catPkg.DefaultInstallVersion.GetApplicableInstaller(installOptions);
+                        if (options.ElevationRequirement is ElevationRequirement.ElevationRequired or ElevationRequirement.ElevatesSelf)
+                            overriden_options.RunAsAdministrator = true;
+                        else if (options.ElevationRequirement is ElevationRequirement.ElevationProhibited)
+                            overriden_options.RunAsAdministrator = false;
+                    }
+
                     Packages.Add(new Package(
                         catPkg.Name,
                         catPkg.Id,
                         catPkg.DefaultInstallVersion.Version,
                         source,
-                        Manager
+                        Manager,
+                        overriden_options
                     ));
                 }
             }

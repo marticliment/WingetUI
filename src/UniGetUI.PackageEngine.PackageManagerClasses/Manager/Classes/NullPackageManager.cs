@@ -197,7 +197,7 @@ namespace UniGetUI.PackageEngine.Classes.Manager
             throw new NotImplementedException();
         }
 
-        public OperationVeredict GetOperationResult(IPackage package, IInstallationOptions options, OperationType operation, IEnumerable<string> processOutput, int returnCode)
+        public OperationVeredict GetOperationResult(IPackage package, OperationType operation, IEnumerable<string> processOutput, int returnCode)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,6 @@
+using System.Text;
 using Nancy;
 using Nancy.Hosting.Self;
-using System.Text;
 using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;

@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
 using UniGetUI.PackageEngine.Enums;
 using UniGetUI.PackageEngine.Interfaces;
-using UniGetUI.PackageEngine.PackageClasses;
 
 namespace UniGetUI.PackageEngine.Managers.PowerShellManager;
 internal sealed class PowerShellOperationProvider : BaseOperationProvider<PowerShell>
@@ -32,8 +25,7 @@ internal sealed class PowerShellOperationProvider : BaseOperationProvider<PowerS
             if (options.PreRelease)
                 parameters.Add("-AllowPrerelease");
 
-            if (options.InstallationScope == PackageScope.Global ||
-                (options.InstallationScope is null && package.Scope == PackageScope.Global))
+            if (package.OverridenOptions.Scope == PackageScope.Global || (package.OverridenOptions.Scope is null && options.InstallationScope == PackageScope.Global))
                 parameters.AddRange(["-Scope", "AllUsers"]);
             else
                 parameters.AddRange(["-Scope", "CurrentUser"]);
@@ -51,13 +43,17 @@ internal sealed class PowerShellOperationProvider : BaseOperationProvider<PowerS
         return parameters;
     }
 
-    public override OperationVeredict GetOperationResult(IPackage package, IInstallationOptions options, OperationType operation, IEnumerable<string> processOutput, int returnCode)
+    public override OperationVeredict GetOperationResult(
+        IPackage package,
+        OperationType operation,
+        IEnumerable<string> processOutput,
+        int returnCode)
     {
         string output_string = string.Join("\n", processOutput);
 
-        if (output_string.Contains("AdminPrivilegesAreRequired") && !options.RunAsAdministrator)
+        if (!package.OverridenOptions.RunAsAdministrator != true && output_string.Contains("AdminPrivilegesAreRequired"))
         {
-            options.RunAsAdministrator = true;
+            package.OverridenOptions.RunAsAdministrator = true;
             return OperationVeredict.AutoRetry;
         }
 

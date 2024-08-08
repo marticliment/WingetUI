@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
 using UniGetUI.PackageEngine.Enums;
 using UniGetUI.PackageEngine.Interfaces;
-using UniGetUI.PackageEngine.Managers.NpmManager;
-using UniGetUI.PackageEngine.PackageClasses;
 
 namespace UniGetUI.PackageEngine.Managers.NpmManager;
 internal sealed class NpmOperationProvider : BaseOperationProvider<Npm>
@@ -28,7 +20,7 @@ internal sealed class NpmOperationProvider : BaseOperationProvider<Npm>
         if (options.CustomParameters != null)
             parameters.AddRange(options.CustomParameters);
 
-        if (options.InstallationScope == PackageScope.Global || (options.InstallationScope is null && package.Scope == PackageScope.Global))
+        if (package.OverridenOptions.Scope == PackageScope.Global || (package.OverridenOptions.Scope is null && options.InstallationScope == PackageScope.Global))
             parameters.Add("--global");
 
         if (options.PreRelease)
@@ -37,7 +29,11 @@ internal sealed class NpmOperationProvider : BaseOperationProvider<Npm>
         return parameters;
     }
 
-    public override OperationVeredict GetOperationResult(IPackage package, IInstallationOptions options, OperationType operation, IEnumerable<string> processOutput, int returnCode)
+    public override OperationVeredict GetOperationResult(
+        IPackage package,
+        OperationType operation,
+        IEnumerable<string> processOutput,
+        int returnCode)
     {
         return returnCode == 0 ? OperationVeredict.Succeeded : OperationVeredict.Failed;
     }
