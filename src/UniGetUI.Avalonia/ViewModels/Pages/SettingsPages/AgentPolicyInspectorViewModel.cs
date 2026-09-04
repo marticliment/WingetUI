@@ -243,6 +243,7 @@ public partial class AgentPolicyInspectorViewModel : ViewModelBase, IDisposable
             if (!CanApplyManagement(generation, cancellation)) return;
 
             ApplyManagementResult(result);
+            AnnounceManagementStatus();
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
         {
@@ -690,6 +691,18 @@ public partial class AgentPolicyInspectorViewModel : ViewModelBase, IDisposable
         _announce(
             message,
             Status.Severity == InfoBarSeverity.Error
+                ? AutomationLiveSetting.Assertive
+                : AutomationLiveSetting.Polite);
+    }
+
+    private void AnnounceManagementStatus()
+    {
+        string message = string.IsNullOrEmpty(ManagementStatus.Message)
+            ? ManagementStatus.Title
+            : $"{ManagementStatus.Title}. {ManagementStatus.Message}";
+        _announce(
+            message,
+            ManagementStatus.Severity == InfoBarSeverity.Error
                 ? AutomationLiveSetting.Assertive
                 : AutomationLiveSetting.Polite);
     }
