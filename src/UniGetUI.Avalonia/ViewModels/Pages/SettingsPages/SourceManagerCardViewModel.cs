@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia.Automation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using UniGetUI.Avalonia.Infrastructure;
@@ -158,6 +159,9 @@ public partial class SourceManagerCardViewModel : ViewModelBase
         _ = op.MainThread();
         Sources.Remove(source);
     }
+
+    partial void OnAddErrorChanged(string value)
+        => AccessibilityAnnouncementService.Announce(value, AutomationLiveSetting.Assertive);
 
     partial void OnNewSourceNameChanged(string value) => AddError = "";
 
