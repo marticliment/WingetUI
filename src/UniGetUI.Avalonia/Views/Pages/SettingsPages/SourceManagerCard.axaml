@@ -136,6 +136,11 @@
                          FontSize="14"
                          automation:AutomationProperties.Name="{Binding UrlHint}"/>
             </Grid>
+            <TextBlock Text="{Binding AddError}"
+                       IsVisible="{Binding HasAddError}"
+                       Foreground="{DynamicResource StatusErrorForeground}"
+                       TextWrapping="Wrap"
+                       FontSize="13"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="4">
                 <Button Content="{Binding CancelLabel}"
                         automation:AutomationProperties.Name="{Binding CancelLabel}"

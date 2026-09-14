@@ -1089,5 +1089,7 @@
   "Subfolder for each package:": "每个软件包的子文件夹：",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% 会替换为软件包 ID，%NAME% 会替换为软件包名称。",
   "Package name": "软件包名称",
-  "No subfolder": "无子文件夹"
+  "No subfolder": "无子文件夹",
+  "Enter a name for the new source": "请输入新源的名称",
+  "Enter a complete source URL, including the protocol (for example https://)": "请输入完整的源 URL，包括协议（例如 https://）"
 }

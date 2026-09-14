@@ -39,9 +39,11 @@ internal static class WindowsAppNotificationBridge
             return null;
 
         const string prefix = "unigetui://";
-        return arg.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
-            ? arg[prefix.Length..]
-            : null;
+        if (!arg.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            return null;
+
+        string action = arg[prefix.Length..].Trim('/');
+        return action.Length > 0 ? action : null;
     }
 
     /// <summary>Raises <see cref="NotificationActivated"/> with the given action.</summary>

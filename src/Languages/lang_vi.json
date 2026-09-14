@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Thư mục con cho mỗi gói:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% được thay bằng ID gói, còn %NAME% được thay bằng tên gói.",
   "Package name": "Tên gói",
-  "No subfolder": "Không có thư mục con"
+  "No subfolder": "Không có thư mục con",
+  "Enter a name for the new source": "Nhập tên cho nguồn mới",
+  "Enter a complete source URL, including the protocol (for example https://)": "Nhập URL nguồn đầy đủ, bao gồm cả giao thức (ví dụ https://)"
 }

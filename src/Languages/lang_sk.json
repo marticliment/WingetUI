@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Podpriečinok pre každý balíček:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% sa nahradí ID balíčka a %NAME% názvom balíčka.",
   "Package name": "Názov balíčka",
-  "No subfolder": "Bez podpriečinka"
+  "No subfolder": "Bez podpriečinka",
+  "Enter a name for the new source": "Zadajte názov nového zdroja",
+  "Enter a complete source URL, including the protocol (for example https://)": "Zadajte úplnú URL zdroja vrátane protokolu (napríklad https://)"
 }

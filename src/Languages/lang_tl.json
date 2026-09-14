@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Subfolder para sa bawat pakete:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "Pinapalitan ang %PACKAGE% ng ID ng pakete, at ang %NAME% ng pangalan ng pakete.",
   "Package name": "Pangalan ng pakete",
-  "No subfolder": "Walang subfolder"
+  "No subfolder": "Walang subfolder",
+  "Enter a name for the new source": "Maglagay ng pangalan para sa bagong source",
+  "Enter a complete source URL, including the protocol (for example https://)": "Ilagay ang kumpletong URL ng source, kasama ang protocol (halimbawa https://)"
 }

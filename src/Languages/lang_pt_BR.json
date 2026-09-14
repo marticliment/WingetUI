@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Subpasta para cada pacote:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% é substituído pelo ID do pacote e %NAME% pelo nome do pacote.",
   "Package name": "Nome do pacote",
-  "No subfolder": "Sem subpasta"
+  "No subfolder": "Sem subpasta",
+  "Enter a name for the new source": "Insira um nome para a nova fonte",
+  "Enter a complete source URL, including the protocol (for example https://)": "Insira o URL completo da fonte, incluindo o protocolo (por exemplo https://)"
 }

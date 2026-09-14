@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Подфасцикла за сваки пакет:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% се замењује ИД-ом пакета, а %NAME% именом пакета.",
   "Package name": "Име пакета",
-  "No subfolder": "Без подфасцикле"
+  "No subfolder": "Без подфасцикле",
+  "Enter a name for the new source": "Унеси назив новог извора",
+  "Enter a complete source URL, including the protocol (for example https://)": "Унеси потпун УРЛ извора, укључујући протокол (на пример https://)"
 }

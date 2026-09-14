@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "โฟลเดอร์ย่อยสำหรับแต่ละแพ็กเกจ:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% จะถูกแทนที่ด้วยรหัสแพ็กเกจ และ %NAME% ด้วยชื่อแพ็กเกจ",
   "Package name": "ชื่อแพ็กเกจ",
-  "No subfolder": "ไม่มีโฟลเดอร์ย่อย"
+  "No subfolder": "ไม่มีโฟลเดอร์ย่อย",
+  "Enter a name for the new source": "กรอกชื่อสำหรับซอร์ซใหม่",
+  "Enter a complete source URL, including the protocol (for example https://)": "กรอก URL ของซอร์ซให้ครบถ้วน รวมถึงโปรโตคอล (ตัวอย่างเช่น https://)"
 }

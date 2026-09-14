@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Subdosierujo por ĉiu pakaĵo:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% estas anstataŭigata per la identigilo de la pakaĵo, kaj %NAME% per la nomo de la pakaĵo.",
   "Package name": "Nomo de la pakaĵo",
-  "No subfolder": "Neniu subdosierujo"
+  "No subfolder": "Neniu subdosierujo",
+  "Enter a name for the new source": "Enigu nomon por la nova fonto",
+  "Enter a complete source URL, including the protocol (for example https://)": "Enigu kompletan URL-on de la fonto, inkluzive la protokolon (ekzemple https://)"
 }

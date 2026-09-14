@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Undermapp för varje paket:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% ersätts med paketets ID och %NAME% med paketets namn.",
   "Package name": "Paketnamn",
-  "No subfolder": "Ingen undermapp"
+  "No subfolder": "Ingen undermapp",
+  "Enter a name for the new source": "Ange ett namn för den nya källan",
+  "Enter a complete source URL, including the protocol (for example https://)": "Ange en fullständig käll-URL, inklusive protokollet (till exempel https://)"
 }

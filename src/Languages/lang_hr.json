@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Podmapa za svaki paket:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% se zamjenjuje ID-om paketa, a %NAME% nazivom paketa.",
   "Package name": "Naziv paketa",
-  "No subfolder": "Bez podmape"
+  "No subfolder": "Bez podmape",
+  "Enter a name for the new source": "Unesite naziv novog izvora",
+  "Enter a complete source URL, including the protocol (for example https://)": "Unesite potpuni URL izvora, uključujući protokol (na primjer https://)"
 }

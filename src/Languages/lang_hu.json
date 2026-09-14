@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Almappa minden csomaghoz:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "A %PACKAGE% helyére a csomag azonosítója, a %NAME% helyére pedig a csomag neve kerül.",
   "Package name": "Csomag neve",
-  "No subfolder": "Nincs almappa"
+  "No subfolder": "Nincs almappa",
+  "Enter a name for the new source": "Adja meg az új forrás nevét",
+  "Enter a complete source URL, including the protocol (for example https://)": "Adja meg a forrás teljes URL-jét a protokollal együtt (például https://)"
 }

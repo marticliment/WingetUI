@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Укладзеная папка для кожнага пакета:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% замяняецца ідэнтыфікатарам пакета, а %NAME% — назвай пакета.",
   "Package name": "Назва пакета",
-  "No subfolder": "Без укладзенай папкі"
+  "No subfolder": "Без укладзенай папкі",
+  "Enter a name for the new source": "Увядзіце назву новай крыніцы",
+  "Enter a complete source URL, including the protocol (for example https://)": "Увядзіце поўны URL крыніцы, уключаючы пратакол (напрыклад, https://)"
 }

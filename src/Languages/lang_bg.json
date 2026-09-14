@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Подпапка за всеки пакет:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% се заменя с идентификатора на пакета, а %NAME% с името на пакета.",
   "Package name": "Име на пакета",
-  "No subfolder": "Без подпапка"
+  "No subfolder": "Без подпапка",
+  "Enter a name for the new source": "Въведете име за новия източник",
+  "Enter a complete source URL, including the protocol (for example https://)": "Въведете пълен URL адрес на източника, включително протокола (например https://)"
 }

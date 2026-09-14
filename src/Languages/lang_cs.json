@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Podsložka pro každý balíček:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% se nahradí ID balíčku a %NAME% názvem balíčku.",
   "Package name": "Název balíčku",
-  "No subfolder": "Bez podsložky"
+  "No subfolder": "Bez podsložky",
+  "Enter a name for the new source": "Zadejte název nového zdroje",
+  "Enter a complete source URL, including the protocol (for example https://)": "Zadejte úplnou URL zdroje včetně protokolu (například https://)"
 }

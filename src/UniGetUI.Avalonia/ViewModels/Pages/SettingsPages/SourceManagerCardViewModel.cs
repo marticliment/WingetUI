@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia.Automation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using UniGetUI.Avalonia.Infrastructure;
@@ -28,6 +29,12 @@ public partial class SourceManagerCardViewModel : ViewModelBase
     [ObservableProperty] private string _newSourceName = "";
     [ObservableProperty] private string _newSourceUrl = "";
     [ObservableProperty] private bool _nameUrlEditable = true;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasAddError))]
+    private string _addError = "";
+
+    public bool HasAddError => AddError.Length > 0;
 
     public string TitleText => CoreTools.Translate("Manage {0} sources", _manager.DisplayName);
     public string AddLabel { get; } = CoreTools.Translate("Add source");
@@ -83,7 +90,11 @@ public partial class SourceManagerCardViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void ShowAddSource() => ShowAddForm = true;
+    private void ShowAddSource()
+    {
+        AddError = "";
+        ShowAddForm = true;
+    }
 
     [RelayCommand]
     private void CancelAddSource()
@@ -92,6 +103,7 @@ public partial class SourceManagerCardViewModel : ViewModelBase
         NewSourceName = "";
         NewSourceUrl = "";
         SelectedKnownSource = _otherLabel;
+        AddError = "";
     }
 
     [RelayCommand]
@@ -105,11 +117,22 @@ public partial class SourceManagerCardViewModel : ViewModelBase
         }
         else
         {
-            if (string.IsNullOrWhiteSpace(NewSourceName)) return;
-            if (!Uri.TryCreate(NewSourceUrl.Trim(), UriKind.Absolute, out var uri)) return;
+            if (string.IsNullOrWhiteSpace(NewSourceName))
+            {
+                AddError = CoreTools.Translate("Enter a name for the new source");
+                return;
+            }
+
+            if (!Uri.TryCreate(NewSourceUrl.Trim(), UriKind.Absolute, out var uri))
+            {
+                AddError = CoreTools.Translate("Enter a complete source URL, including the protocol (for example https://)");
+                return;
+            }
+
             source = new ManagerSource(_manager, NewSourceName.Trim(), uri);
         }
 
+        AddError = "";
         ShowAddForm = false;
         NewSourceName = "";
         NewSourceUrl = "";
@@ -137,8 +160,16 @@ public partial class SourceManagerCardViewModel : ViewModelBase
         Sources.Remove(source);
     }
 
+    partial void OnAddErrorChanged(string value)
+        => AccessibilityAnnouncementService.Announce(value, AutomationLiveSetting.Assertive);
+
+    partial void OnNewSourceNameChanged(string value) => AddError = "";
+
+    partial void OnNewSourceUrlChanged(string value) => AddError = "";
+
     partial void OnSelectedKnownSourceChanged(string? value)
     {
+        AddError = "";
         if (value is null || value == _otherLabel)
         {
             NameUrlEditable = true;

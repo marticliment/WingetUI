@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "එක් එක් පැකේජය සඳහා උපෆෝල්ඩරය:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% වෙනුවට පැකේජ ID එකද, %NAME% වෙනුවට පැකේජ නාමයද ආදේශ වේ.",
   "Package name": "පැකේජ නාමය",
-  "No subfolder": "උපෆෝල්ඩරයක් නැත"
+  "No subfolder": "උපෆෝල්ඩරයක් නැත",
+  "Enter a name for the new source": "නව මූලාශ්‍රය සඳහා නමක් ඇතුල් කරන්න",
+  "Enter a complete source URL, including the protocol (for example https://)": "ප්‍රොටොකෝලය ඇතුළුව මූලාශ්‍රයේ සම්පූර්ණ URL ලිපිනය ඇතුල් කරන්න (උදාහරණයක් ලෙස https://)"
 }

@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "प्रत्येकस्य packageस्य कृते उपफोल्डरम्:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% स्थाने packageस्य ID, %NAME% स्थाने च packageस्य नाम स्थाप्यते।",
   "Package name": "packageस्य नाम",
-  "No subfolder": "उपफोल्डरं नास्ति"
+  "No subfolder": "उपफोल्डरं नास्ति",
+  "Enter a name for the new source": "नूतनस्रोतस्य नाम लिखतु",
+  "Enter a complete source URL, including the protocol (for example https://)": "प्रोटोकॉल-सहितं स्रोतस्य सम्पूर्णं URL लिखतु (यथा https://)"
 }

@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "زیرپوشه برای هر بسته:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% با شناسه بسته و %NAME% با نام بسته جایگزین می‌شود.",
   "Package name": "نام بسته",
-  "No subfolder": "بدون زیرپوشه"
+  "No subfolder": "بدون زیرپوشه",
+  "Enter a name for the new source": "یک نام برای منبع جدید وارد کنید",
+  "Enter a complete source URL, including the protocol (for example https://)": "نشانی کامل منبع را همراه با پروتکل وارد کنید (برای مثال https://)"
 }
