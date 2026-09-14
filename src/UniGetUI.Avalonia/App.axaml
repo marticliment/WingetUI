@@ -5,6 +5,13 @@
              Name="UniGetUI"
              RequestedThemeVariant="Default">
 
+    <!-- macOS: Avalonia injects a default app menu with an "About Avalonia" entry when the
+         application declares none. Declaring an empty one suppresses it; the standard
+         Services/Hide/Quit items are still appended by the native menu exporter. -->
+    <NativeMenu.Menu>
+        <NativeMenu />
+    </NativeMenu.Menu>
+
     <Application.DataTemplates>
         <avaloniaApplication1:ViewLocator/>
     </Application.DataTemplates>
