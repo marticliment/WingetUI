@@ -949,7 +949,8 @@
   "There are no packages to export.": "没有可导出的软件包。",
   "CSV file": "CSV 文件",
   "The file was saved to {0}": "文件已保存至 {0}",
-  "The file could not be saved:": "无法保存文件：",  "Environment variables use %VARIABLE% syntax.": "环境变量使用 %VARIABLE% 语法。",
+  "The file could not be saved:": "无法保存文件：",
+  "Environment variables use %VARIABLE% syntax.": "环境变量使用 %VARIABLE% 语法。",
   "Environment variables use <VARIABLE> syntax.": "环境变量使用 <VARIABLE> 语法。",
   "Change environment variable syntax": "更改环境变量语法",
   "Check for package updates": "检查软件包更新",
@@ -1076,5 +1077,17 @@
   "UniGetUI is running in portable mode and started with empty settings. Settings from a previous installation were found at {0}.": "UniGetUI 正以便携模式运行且尚未加载设置。在 {0} 发现了旧版安装的设置文件。",
   "Settings imported": "设置已导入",
   "{0} file(s) were copied. Restart UniGetUI to apply them.": "已复制 {0} 个文件。请重启 UniGetUI 以应用它们。",
-  "Could not import settings": "无法导入设置"
+  "Could not import settings": "无法导入设置",
+  "Could not import all settings from {0}": "无法从 {0} 导入所有设置",
+  "{package} may already be up to date, or no installer matches this system": "{package} 可能已是最新，或者没有与此系统匹配的安装程序",
+  "{0} could not read the version of this package that is currently installed.": "{0} 无法读取此软件包当前已安装的版本。",
+  "No installed version is known for it.": "未知其已安装的版本。",
+  "The version shown is the one UniGetUI last installed ({0}); if the package has been updated by anything else since, that is out of date.": "显示的版本是 UniGetUI 最后一次安装的版本（{0}）；如果此后软件包被其他程序更新过，该信息已过时。",
+  "The installer for {package} does not match the hash in its manifest": "{package} 的安装程序与其清单中的哈希值不匹配",
+  "The package manifest is likely out of date. WinGet cannot skip this check while running as administrator.": "软件包清单可能已过时。WinGet 以管理员身份运行时无法跳过此检查。",
+  "The package manifest is likely out of date. Skipping this check requires WinGet's InstallerHashOverride administrator setting.": "软件包清单可能已过时。跳过此检查需要 WinGet 的 InstallerHashOverride 管理员设置。",
+  "Subfolder for each package:": "每个软件包的子文件夹：",
+  "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% 会替换为软件包 ID，%NAME% 会替换为软件包名称。",
+  "Package name": "软件包名称",
+  "No subfolder": "无子文件夹"
 }
