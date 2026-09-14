@@ -825,20 +825,20 @@ public partial class MainWindowViewModel : ViewModelBase
     // ─── Notification activation ─────────────────────────────────────────────
     private void HandleNotificationActivation(string action)
     {
-        if (action == NotificationArguments.UpdateAllPackages)
+        if (string.Equals(action, NotificationArguments.UpdateAllPackages, StringComparison.OrdinalIgnoreCase))
         {
             _ = AvaloniaPackageOperationHelper.UpdateAllAsync();
         }
-        else if (action == NotificationArguments.ShowOnUpdatesTab)
+        else if (string.Equals(action, NotificationArguments.ShowOnUpdatesTab, StringComparison.OrdinalIgnoreCase))
         {
             NavigateTo(PageType.Updates);
             MainWindow.Instance?.ShowFromTray();
         }
-        else if (action == NotificationArguments.Show)
+        else if (string.Equals(action, NotificationArguments.Show, StringComparison.OrdinalIgnoreCase))
         {
             MainWindow.Instance?.ShowFromTray();
         }
-        else if (action == NotificationArguments.ReleaseSelfUpdateLock)
+        else if (string.Equals(action, NotificationArguments.ReleaseSelfUpdateLock, StringComparison.OrdinalIgnoreCase))
         {
             AvaloniaAutoUpdater.ReleaseLockForAutoupdate_Notification = true;
         }
