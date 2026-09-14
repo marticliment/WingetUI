@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "ஒவ்வொரு தொகுப்புக்கும் துணைக் கோப்புறை:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% என்பது தொகுப்பு ID ஆலும், %NAME% என்பது தொகுப்பின் பெயராலும் மாற்றப்படும்.",
   "Package name": "தொகுப்பின் பெயர்",
-  "No subfolder": "துணைக் கோப்புறை இல்லை"
+  "No subfolder": "துணைக் கோப்புறை இல்லை",
+  "Enter a name for the new source": "புதிய மூலத்திற்கு ஒரு பெயரை உள்ளிடவும்",
+  "Enter a complete source URL, including the protocol (for example https://)": "நெறிமுறை உட்பட மூலத்தின் முழு URL ஐ உள்ளிடவும் (எடுத்துக்காட்டாக https://)"
 }

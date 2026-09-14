@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Υποφάκελος για κάθε πακέτο:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "Το %PACKAGE% αντικαθίσταται με το αναγνωριστικό του πακέτου και το %NAME% με το όνομα του πακέτου.",
   "Package name": "Όνομα πακέτου",
-  "No subfolder": "Χωρίς υποφάκελο"
+  "No subfolder": "Χωρίς υποφάκελο",
+  "Enter a name for the new source": "Εισαγάγετε ένα όνομα για τη νέα πηγή",
+  "Enter a complete source URL, including the protocol (for example https://)": "Εισαγάγετε την πλήρη διεύθυνση URL της πηγής, συμπεριλαμβανομένου του πρωτοκόλλου (για παράδειγμα https://)"
 }

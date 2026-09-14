@@ -1086,5 +1086,7 @@
   "Subfolder for each package:": "Subcarpeta para cada paquete:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% se sustituye por el ID del paquete y %NAME% por el nombre del paquete.",
   "Package name": "Nombre del paquete",
-  "No subfolder": "Sin subcarpeta"
+  "No subfolder": "Sin subcarpeta",
+  "Enter a name for the new source": "Introduce un nombre para la nueva fuente",
+  "Enter a complete source URL, including the protocol (for example https://)": "Introduce la URL completa de la fuente, incluido el protocolo (por ejemplo https://)"
 }

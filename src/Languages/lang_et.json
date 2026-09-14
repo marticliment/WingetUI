@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Alamkaust iga paketi jaoks:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% asendatakse paketi ID-ga ja %NAME% paketi nimega.",
   "Package name": "Paketi nimi",
-  "No subfolder": "Alamkausta pole"
+  "No subfolder": "Alamkausta pole",
+  "Enter a name for the new source": "Sisestage uue allika nimi",
+  "Enter a complete source URL, including the protocol (for example https://)": "Sisestage allika täielik URL koos protokolliga (näiteks https://)"
 }

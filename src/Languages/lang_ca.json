@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Subcarpeta per a cada paquet:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% se substitueix per l'identificador del paquet, i %NAME% pel nom del paquet.",
   "Package name": "Nom del paquet",
-  "No subfolder": "Cap subcarpeta"
+  "No subfolder": "Cap subcarpeta",
+  "Enter a name for the new source": "Escriviu un nom per a la nova font",
+  "Enter a complete source URL, including the protocol (for example https://)": "Escriviu l'URL completa de la font, incloent-hi el protocol (per exemple https://)"
 }

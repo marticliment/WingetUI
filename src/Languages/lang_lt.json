@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Poaplankis kiekvienam paketui:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% pakeičiamas paketo ID, o %NAME% – paketo pavadinimu.",
   "Package name": "Paketo pavadinimas",
-  "No subfolder": "Be poaplankio"
+  "No subfolder": "Be poaplankio",
+  "Enter a name for the new source": "Įveskite naujo šaltinio pavadinimą",
+  "Enter a complete source URL, including the protocol (for example https://)": "Įveskite visą šaltinio URL su protokolu (pavyzdžiui https://)"
 }

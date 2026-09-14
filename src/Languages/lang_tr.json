@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Her paket için alt klasör:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% paket kimliğiyle, %NAME% ise paket adıyla değiştirilir.",
   "Package name": "Paket adı",
-  "No subfolder": "Alt klasör yok"
+  "No subfolder": "Alt klasör yok",
+  "Enter a name for the new source": "Yeni kaynak için bir ad girin",
+  "Enter a complete source URL, including the protocol (for example https://)": "Protokol dahil kaynağın tam URL'sini girin (örneğin https://)"
 }

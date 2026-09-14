@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Alikansio jokaiselle paketille:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% korvataan paketin tunnuksella ja %NAME% paketin nimellä.",
   "Package name": "Paketin nimi",
-  "No subfolder": "Ei alikansiota"
+  "No subfolder": "Ei alikansiota",
+  "Enter a name for the new source": "Kirjoita nimi uudelle lähteelle",
+  "Enter a complete source URL, including the protocol (for example https://)": "Kirjoita lähteen täydellinen URL-osoite protokollan kanssa (esimerkiksi https://)"
 }

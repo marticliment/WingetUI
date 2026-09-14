@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Unterordner für jedes Paket:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% wird durch die Paket-ID ersetzt und %NAME% durch den Paketnamen.",
   "Package name": "Paketname",
-  "No subfolder": "Kein Unterordner"
+  "No subfolder": "Kein Unterordner",
+  "Enter a name for the new source": "Einen Namen für die neue Quelle eingeben",
+  "Enter a complete source URL, including the protocol (for example https://)": "Eine vollständige Quell-URL einschließlich Protokoll eingeben (zum Beispiel https://)"
 }

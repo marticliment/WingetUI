@@ -1092,5 +1092,7 @@
   "Subfolder for each package:": "每個套件的子資料夾：",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% 會替換為套件 ID，%NAME% 會替換為套件名稱。",
   "Package name": "套件名稱",
-  "No subfolder": "無子資料夾"
+  "No subfolder": "無子資料夾",
+  "Enter a name for the new source": "請輸入新來源的名稱",
+  "Enter a complete source URL, including the protocol (for example https://)": "請輸入完整的來源網址，包括通訊協定（例如 https://）"
 }

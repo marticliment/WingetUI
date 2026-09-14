@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Nëndosje për çdo paketë:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% zëvendësohet me ID-në e paketit, dhe %NAME% me emrin e paketit.",
   "Package name": "Emri i paketit",
-  "No subfolder": "Pa nëndosje"
+  "No subfolder": "Pa nëndosje",
+  "Enter a name for the new source": "Shkruaj një emër për burimin e ri",
+  "Enter a complete source URL, including the protocol (for example https://)": "Shkruaj URL-në e plotë të burimit, përfshirë protokollin (për shembull https://)"
 }

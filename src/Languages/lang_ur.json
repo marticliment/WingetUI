@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "ہر پیکیج کے لیے ذیلی فولڈر:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% کی جگہ پیکیج کا ID اور %NAME% کی جگہ پیکیج کا نام آ جاتا ہے۔",
   "Package name": "پیکیج کا نام",
-  "No subfolder": "کوئی ذیلی فولڈر نہیں"
+  "No subfolder": "کوئی ذیلی فولڈر نہیں",
+  "Enter a name for the new source": "نئے ماخذ کے لیے نام درج کریں",
+  "Enter a complete source URL, including the protocol (for example https://)": "پروٹوکول سمیت ماخذ کا مکمل URL درج کریں (مثلاً https://)"
 }

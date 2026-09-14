@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "ژێربوخچە بۆ هەر پاکێجێک:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% بە ناسنامەی پاکێج و %NAME% بە ناوی پاکێج جێگۆڕکێ دەکرێن.",
   "Package name": "ناوی پاکێج",
-  "No subfolder": "بەبێ ژێربوخچە"
+  "No subfolder": "بەبێ ژێربوخچە",
+  "Enter a name for the new source": "ناوێک بۆ سەرچاوەی نوێ بنووسە",
+  "Enter a complete source URL, including the protocol (for example https://)": "بەستەری تەواوی سەرچاوە بنووسە، پرۆتۆکۆڵیشی لەگەڵدا بێت (بۆ نموونە https://)"
 }

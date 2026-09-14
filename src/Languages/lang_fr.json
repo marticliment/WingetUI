@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Sous-dossier pour chaque paquet :",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% est remplacé par l'ID du paquet, et %NAME% par le nom du paquet.",
   "Package name": "Nom du paquet",
-  "No subfolder": "Aucun sous-dossier"
+  "No subfolder": "Aucun sous-dossier",
+  "Enter a name for the new source": "Entrez un nom pour la nouvelle source",
+  "Enter a complete source URL, including the protocol (for example https://)": "Entrez l'URL complète de la source, protocole inclus (par exemple https://)"
 }

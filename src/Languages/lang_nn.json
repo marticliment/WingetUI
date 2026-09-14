@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Undermappe for kvar pakke:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% blir bytt ut med ID-en til pakken, og %NAME% med namnet på pakken.",
   "Package name": "Pakkenamn",
-  "No subfolder": "Inga undermappe"
+  "No subfolder": "Inga undermappe",
+  "Enter a name for the new source": "Skriv inn eit namn på den nye kjelda",
+  "Enter a complete source URL, including the protocol (for example https://)": "Skriv inn ein fullstendig kjelde-URL, inkludert protokollen (til dømes https://)"
 }

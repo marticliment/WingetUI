@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "ქვესაქაღალდე თითოეული პაკეტისთვის:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% ჩანაცვლდება პაკეტის ID-ით, ხოლო %NAME% — პაკეტის სახელით.",
   "Package name": "პაკეტის სახელი",
-  "No subfolder": "ქვესაქაღალდის გარეშე"
+  "No subfolder": "ქვესაქაღალდის გარეშე",
+  "Enter a name for the new source": "შეიყვანეთ ახალი წყაროს სახელი",
+  "Enter a complete source URL, including the protocol (for example https://)": "შეიყვანეთ წყაროს სრული URL პროტოკოლის ჩათვლით (მაგალითად https://)"
 }

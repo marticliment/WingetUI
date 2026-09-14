@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Subfolder untuk setiap paket:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% diganti dengan ID paket, dan %NAME% dengan nama paket.",
   "Package name": "Nama paket",
-  "No subfolder": "Tanpa subfolder"
+  "No subfolder": "Tanpa subfolder",
+  "Enter a name for the new source": "Masukkan nama untuk sumber baru",
+  "Enter a complete source URL, including the protocol (for example https://)": "Masukkan URL sumber lengkap, termasuk protokolnya (misalnya https://)"
 }

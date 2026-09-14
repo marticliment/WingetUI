@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "Submap voor elk pakket:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% wordt vervangen door de pakket-id en %NAME% door de pakketnaam.",
   "Package name": "Pakketnaam",
-  "No subfolder": "Geen submap"
+  "No subfolder": "Geen submap",
+  "Enter a name for the new source": "Voer een naam in voor de nieuwe bron",
+  "Enter a complete source URL, including the protocol (for example https://)": "Voer een volledige bron-URL in, inclusief het protocol (bijvoorbeeld https://)"
 }

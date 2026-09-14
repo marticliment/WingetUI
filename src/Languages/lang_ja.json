@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "パッケージごとのサブフォルダー:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% はパッケージ ID に、%NAME% はパッケージ名に置き換えられます。",
   "Package name": "パッケージ名",
-  "No subfolder": "サブフォルダーなし"
+  "No subfolder": "サブフォルダーなし",
+  "Enter a name for the new source": "新しいソースの名前を入力してください",
+  "Enter a complete source URL, including the protocol (for example https://)": "プロトコルを含む完全なソース URL を入力してください (例: https://)"
 }

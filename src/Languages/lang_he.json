@@ -1090,5 +1090,7 @@
   "Subfolder for each package:": "תת-תיקייה לכל חבילה:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% מוחלף במזהה החבילה, ו-%NAME% בשם החבילה.",
   "Package name": "שם החבילה",
-  "No subfolder": "ללא תת-תיקייה"
+  "No subfolder": "ללא תת-תיקייה",
+  "Enter a name for the new source": "הזן שם עבור המקור החדש",
+  "Enter a complete source URL, including the protocol (for example https://)": "הזן כתובת URL מלאה של המקור, כולל הפרוטוקול (לדוגמה https://)"
 }

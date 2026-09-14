@@ -1091,5 +1091,7 @@
   "Subfolder for each package:": "Subfolder pentru fiecare pachet:",
   "%PACKAGE% is replaced with the package ID, and %NAME% with the package name.": "%PACKAGE% este înlocuit cu ID-ul pachetului, iar %NAME% cu numele pachetului.",
   "Package name": "Numele pachetului",
-  "No subfolder": "Fără subfolder"
+  "No subfolder": "Fără subfolder",
+  "Enter a name for the new source": "Introdu un nume pentru noua sursă",
+  "Enter a complete source URL, including the protocol (for example https://)": "Introdu URL-ul complet al sursei, inclusiv protocolul (de exemplu https://)"
 }
