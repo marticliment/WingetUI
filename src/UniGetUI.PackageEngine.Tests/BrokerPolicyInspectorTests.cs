@@ -166,7 +166,7 @@ public class BrokerPolicyInspectorTests
     }
 
     [Fact]
-    public async Task InspectAsync_ClassifiesNamedPipePermissionFailureAsAccessDenied()
+    public async Task InspectAsync_ClassifiesNamedPipePermissionFailureAsUnavailable()
     {
         var exception = new BrokerClientException(
             BrokerClientErrorKind.BrokerUnavailable,
@@ -176,7 +176,7 @@ public class BrokerPolicyInspectorTests
 
         BrokerPolicyInspectionResult result = await inspector.InspectAsync(CancellationToken.None);
 
-        Assert.Equal(BrokerPolicyInspectionStatus.AccessDenied, result.Status);
+        Assert.Equal(BrokerPolicyInspectionStatus.AgentUnavailable, result.Status);
     }
 
     [Theory]
