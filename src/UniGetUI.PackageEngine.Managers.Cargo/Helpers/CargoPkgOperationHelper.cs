@@ -1,3 +1,4 @@
+using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
 using UniGetUI.PackageEngine.Classes.Manager.BaseProviders;
 using UniGetUI.PackageEngine.Enums;
@@ -8,6 +9,17 @@ namespace UniGetUI.PackageEngine.Managers.CargoManager;
 
 internal sealed class CargoPkgOperationHelper(Cargo cargo) : BasePkgOperationHelper(cargo)
 {
+    private const string BinstallPackageId = "cargo-binstall";
+
+    private static bool TargetsBinstallItself(IPackage package) =>
+        package.Id.Equals(BinstallPackageId, StringComparison.OrdinalIgnoreCase);
+
+    private bool UsesBinstall(IPackage package) =>
+        ((Cargo)Manager).HasBinstall && !package.OverridenOptions.Cargo_DoNotUseBinstall;
+
+    private static bool OperationIsBrokered(IPackage package) =>
+        Settings.Get(Settings.K.UseAgentBroker) && !package.Source.IsVirtualManager;
+
     protected override IReadOnlyList<string> _getOperationParameters(
         IPackage package,
         InstallOptions options,
@@ -26,7 +38,8 @@ internal sealed class CargoPkgOperationHelper(Cargo cargo) : BasePkgOperationHel
             ? ["--version", CoreTools.EscapeCommandLineArgument(requestedVersion)]
             : [];
 
-        bool hasBinstall = ((Cargo)Manager).HasBinstall;
+        bool hasBinstall = UsesBinstall(package);
+        bool targetsBinstallItself = TargetsBinstallItself(package);
 
         List<string> parameters;
         switch (operation)
@@ -35,6 +48,9 @@ internal sealed class CargoPkgOperationHelper(Cargo cargo) : BasePkgOperationHel
                 if (hasBinstall)
                     parameters =
                         [Manager.Properties.InstallVerb, .. versionArguments, package.Id];
+                else if (targetsBinstallItself)
+                    parameters =
+                        ["install", package.Id, .. versionArguments, "--locked", "--force"];
                 else
                     parameters = ["install", package.Id, .. versionArguments];
                 break;
@@ -42,6 +58,8 @@ internal sealed class CargoPkgOperationHelper(Cargo cargo) : BasePkgOperationHel
             case OperationType.Update:
                 if (hasBinstall)
                     parameters = [Manager.Properties.UpdateVerb, package.Id];
+                else if (targetsBinstallItself)
+                    parameters = ["install", package.Id, "--locked", "--force"];
                 else
                     parameters = ["install", package.Id, "--force"];
                 break;
@@ -59,6 +77,9 @@ internal sealed class CargoPkgOperationHelper(Cargo cargo) : BasePkgOperationHel
             if (hasBinstall)
             {
                 parameters.Add("--no-confirm");
+
+                if (targetsBinstallItself)
+                    parameters.AddRange(["--disable-strategies", "compile"]);
 
                 if (options.SkipHashCheck)
                     parameters.Add("--skip-signatures");
@@ -92,6 +113,18 @@ internal sealed class CargoPkgOperationHelper(Cargo cargo) : BasePkgOperationHel
             ((Cargo)Manager).InvalidateInstalledCache();
             return OperationVeredict.Success;
         }
+
+        if (
+            operation is OperationType.Install or OperationType.Update
+            && TargetsBinstallItself(package)
+            && UsesBinstall(package)
+            && !OperationIsBrokered(package)
+        )
+        {
+            package.OverridenOptions.Cargo_DoNotUseBinstall = true;
+            return OperationVeredict.AutoRetry;
+        }
+
         return OperationVeredict.Failure;
     }
 }
